@@ -1,0 +1,42 @@
+Package: easyXpress
+Title: A Package to Read, Process, and Analyze Worm Data Generated from CellProfiler’s WormToolbox
+Version: 0.1.0
+Authors@R: c(
+    person(given = "Joy",
+           family = "Nyaanga",
+           role = c("aut", "cre"),
+           email = "jnyaan@gmail.com",
+           comment = c(ORCID = "0000-0002-1402-9213")),
+    person(given = "Tim",
+           family = "Crombie",
+           role = "aut",
+           email = "tim.crombie@gmail.com",
+           comment = c(ORCID = "0000-0002-5645-4154")),
+    person(given = "Sam",
+           family = "Widmayer",
+           role = "aut",
+           email = "sjwidmay@gmail.com",
+           comment = c(ORCID = "0000-0002-1200-4768")))
+Description: A workflow for the reading, processing, and visualization
+    of data obtained from the Molecular Devices ImageExpress Nano Imager.
+    Includes a powerful suite of functions for the rapid processing
+    and analysis of large high-throughput image based datasets.
+Depends:
+    R (>= 3.2.0)
+Imports:
+    tidyselect,
+    data.table,
+    here,
+    glue,
+    tidyr,
+    dplyr,
+    purrr,
+    readr,
+    stringr
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Suggests:
+    testthat,
+    devtools
+RoxygenNote: 7.1.0
