@@ -1,10 +1,10 @@
-# easyxpress
+# easyXpress
 
-easyxpress is specialized for use with worms and is specific to use in the Andersen Lab and, therefore, is not available from CRAN. To install easyxpress you will need the [`devtools`](https://github.com/hadley/devtools) package. You can install `devtools` and `easyXpress` using the commands below:
+easyXpress is specialized for use with worms and is specific to use in the Andersen Lab and, therefore, is not available from CRAN. To install easyXpress you will need the [`devtools`](https://github.com/hadley/devtools) package. You can install `devtools` and `easyXpress` using the commands below:
 
 ```r
 install.packages("devtools")
-devtools::install_github("AndersenLab/easyxpress")
+devtools::install_github("AndersenLab/easyXpress")
 ```
 
 The functionality of the package can be broken down into three main goals:
