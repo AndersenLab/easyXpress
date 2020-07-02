@@ -26,7 +26,7 @@ modelSelection <- function(df) {
   #load model selection file based on number of models selected.
   if (model_num == 2) {
     # read generalized model selection df
-    generalized_model_selection <- easyXpress::model_select_2
+    generalized_model_selection_df <- easyXpress::model_select_2
 
     # exctract generalized model names
     generalized_model_names <- stats::na.omit(
@@ -43,7 +43,7 @@ modelSelection <- function(df) {
 
   } else if (model_num == 3) {
     # read generalized model selection df
-    generalized_model_selection <- easyXpress::model_select_3
+    generalized_model_selection_df <- easyXpress::model_select_3
 
     # exctract generalized model names
     generalized_model_names <- stats::na.omit(
