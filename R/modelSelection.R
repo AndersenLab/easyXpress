@@ -14,10 +14,10 @@
 
 modelSelection <- function(df) {
   # identify number of worm models used
-  model_num <- length(unique(df$model))
+  model_num = length(unique(df$model))
 
   # extract appropriate model levels from worm counts
-  model_names <- df %>%
+  model_names = df %>%
     dplyr::group_by(model) %>%
     dplyr::summarize(worm_count = dplyr::n()) %>%
     dplyr::arrange(dplyr::desc(worm_count)) %>%
@@ -29,7 +29,7 @@ modelSelection <- function(df) {
     generalized_model_selection_df <- easyXpress::model_select_2
 
     # exctract generalized model names
-    generalized_model_names <- stats::na.omit(
+    generalized_model_names = stats::na.omit(
           unique(generalized_model_selection_df$model_select))
 
     # replace generalized model names with model names from df
@@ -46,7 +46,7 @@ modelSelection <- function(df) {
     generalized_model_selection_df <- easyXpress::model_select_3
 
     # exctract generalized model names
-    generalized_model_names <- stats::na.omit(
+    generalized_model_names = stats::na.omit(
           unique(generalized_model_selection_df$model_select))
 
     # replace generalized model names with model names from df
@@ -64,7 +64,7 @@ modelSelection <- function(df) {
     generalized_model_selection_df <- easyXpress::model_select_4
 
     # exctract generalized model names
-    generalized_model_names <- stats::na.omit(
+    generalized_model_names = stats::na.omit(
           unique(generalized_model_selection_df$model_select))
 
     # replace generalized model names with model names from df
