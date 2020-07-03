@@ -14,10 +14,10 @@
 
 modelSelection <- function(df) {
   # identify number of worm models used
-  model_num = length(unique(df$model))
+  model_num <- length(unique(df$model))
 
   # extract appropriate model levels from worm counts
-  model_names = df %>%
+  model_names <- df %>%
     dplyr::group_by(model) %>%
     dplyr::summarize(worm_count = dplyr::n()) %>%
     dplyr::arrange(dplyr::desc(worm_count)) %>%
@@ -29,12 +29,12 @@ modelSelection <- function(df) {
     generalized_model_selection_df <- easyXpress::model_select_2
 
     # exctract generalized model names
-    generalized_model_names = stats::na.omit(
+    generalized_model_names <- stats::na.omit(
           unique(generalized_model_selection_df$model_select))
 
     # replace generalized model names with model names from df
     model_selection_df <- generalized_model_selection_df %>%
-      data.table::setnames(., old = generalized_model_names, new = model_names) %>%
+      data.table::setnames(., old = generalized_model_names, new = model_names, skip_absent = TRUE) %>%
       dplyr::mutate_all(~stringr::str_replace_all(., generalized_model_names[1], model_names[1])) %>%
       dplyr::mutate_all(~stringr::str_replace_all(., generalized_model_names[2], model_names[2])) %>%
       dplyr::mutate_at(dplyr::vars(model_names), as.numeric)
@@ -46,12 +46,12 @@ modelSelection <- function(df) {
     generalized_model_selection_df <- easyXpress::model_select_3
 
     # exctract generalized model names
-    generalized_model_names = stats::na.omit(
+    generalized_model_names <- stats::na.omit(
           unique(generalized_model_selection_df$model_select))
 
     # replace generalized model names with model names from df
     model_selection_df <- generalized_model_selection_df %>%
-      data.table::setnames(., old = generalized_model_names, new = model_names) %>%
+      data.table::setnames(., old = generalized_model_names, new = model_names, skip_absent = TRUE) %>%
       dplyr::mutate_all(~stringr::str_replace_all(., generalized_model_names[1], model_names[1])) %>%
       dplyr::mutate_all(~stringr::str_replace_all(., generalized_model_names[2], model_names[2])) %>%
       dplyr::mutate_all(~stringr::str_replace_all(., generalized_model_names[3], model_names[3])) %>%
@@ -64,12 +64,12 @@ modelSelection <- function(df) {
     generalized_model_selection_df <- easyXpress::model_select_4
 
     # exctract generalized model names
-    generalized_model_names = stats::na.omit(
+    generalized_model_names <- stats::na.omit(
           unique(generalized_model_selection_df$model_select))
 
     # replace generalized model names with model names from df
     model_selection_df <- generalized_model_selection_df %>%
-      data.table::setnames(., old = generalized_model_names, new = model_names) %>%
+      data.table::setnames(., old = generalized_model_names, new = model_names, skip_absent = TRUE) %>%
       dplyr::mutate_all(~stringr::str_replace_all(., generalized_model_names[1], model_names[1])) %>%
       dplyr::mutate_all(~stringr::str_replace_all(., generalized_model_names[2], model_names[2])) %>%
       dplyr::mutate_all(~stringr::str_replace_all(., generalized_model_names[3], model_names[3])) %>%
