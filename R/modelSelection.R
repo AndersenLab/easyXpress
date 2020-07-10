@@ -34,12 +34,12 @@ modelSelection <- function(df) {
 
     # replace generalized model names with model names from df
     model_selection_df <- generalized_model_selection_df %>%
-      data.table::setnames(., old = generalized_model_names, new = model_names, skip_absent = TRUE) %>%
+      data.table::setnames(., old = as.vector(colnames(generalized_model_selection_df[1:3])), new = model_names, skip_absent = TRUE) %>%
       dplyr::mutate_all(~stringr::str_replace_all(., generalized_model_names[1], model_names[1])) %>%
       dplyr::mutate_all(~stringr::str_replace_all(., generalized_model_names[2], model_names[2])) %>%
       dplyr::mutate_at(dplyr::vars(model_names), as.numeric)
 
-    print("SELECTED TWO MODEL FILE")
+    message(glue::glue("SELECTED {model_num} MODEL FILE"))
 
   } else if (model_num == 3) {
     # read generalized model selection df
@@ -51,13 +51,13 @@ modelSelection <- function(df) {
 
     # replace generalized model names with model names from df
     model_selection_df <- generalized_model_selection_df %>%
-      data.table::setnames(., old = generalized_model_names, new = model_names, skip_absent = TRUE) %>%
+      data.table::setnames(., old = as.vector(colnames(generalized_model_selection_df[1:3])), new = model_names, skip_absent = TRUE) %>%
       dplyr::mutate_all(~stringr::str_replace_all(., generalized_model_names[1], model_names[1])) %>%
       dplyr::mutate_all(~stringr::str_replace_all(., generalized_model_names[2], model_names[2])) %>%
       dplyr::mutate_all(~stringr::str_replace_all(., generalized_model_names[3], model_names[3])) %>%
       dplyr::mutate_at(dplyr::vars(model_names), as.numeric)
 
-    print("SELECTED THREE MODEL FILE")
+    message(glue::glue("SELECTED {model_num} MODEL FILE"))
 
   } else if (model_num == 4) {
     # read generalized model selection df
@@ -69,14 +69,14 @@ modelSelection <- function(df) {
 
     # replace generalized model names with model names from df
     model_selection_df <- generalized_model_selection_df %>%
-      data.table::setnames(., old = generalized_model_names, new = model_names, skip_absent = TRUE) %>%
+      data.table::setnames(., old = as.vector(colnames(generalized_model_selection_df[1:3])), new = model_names, skip_absent = TRUE) %>%
       dplyr::mutate_all(~stringr::str_replace_all(., generalized_model_names[1], model_names[1])) %>%
       dplyr::mutate_all(~stringr::str_replace_all(., generalized_model_names[2], model_names[2])) %>%
       dplyr::mutate_all(~stringr::str_replace_all(., generalized_model_names[3], model_names[3])) %>%
       dplyr::mutate_all(~stringr::str_replace_all(., generalized_model_names[4], model_names[4])) %>%
       dplyr::mutate_at(dplyr::vars(model_names), as.numeric)
 
-    print("SELECTED FOUR MODEL FILE")
+    message(glue::glue("SELECTED {model_num} MODEL FILE"))
   }
 
   #join combination file with raw data
