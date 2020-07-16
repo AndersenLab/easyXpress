@@ -34,7 +34,7 @@ modelSelection <- function(df) {
 
     # replace generalized model names with model names from df
     model_selection_df <- generalized_model_selection_df %>%
-      data.table::setnames(., old = as.vector(colnames(generalized_model_selection_df[1:3])), new = model_names, skip_absent = TRUE) %>%
+      data.table::setnames(., old = as.vector(colnames(generalized_model_selection_df[1:2])), new = model_names, skip_absent = TRUE) %>%
       dplyr::mutate_all(~stringr::str_replace_all(., generalized_model_names[1], model_names[1])) %>%
       dplyr::mutate_all(~stringr::str_replace_all(., generalized_model_names[2], model_names[2])) %>%
       dplyr::mutate_at(dplyr::vars(model_names), as.numeric)
@@ -69,7 +69,7 @@ modelSelection <- function(df) {
 
     # replace generalized model names with model names from df
     model_selection_df <- generalized_model_selection_df %>%
-      data.table::setnames(., old = as.vector(colnames(generalized_model_selection_df[1:3])), new = model_names, skip_absent = TRUE) %>%
+      data.table::setnames(., old = as.vector(colnames(generalized_model_selection_df[1:4])), new = model_names, skip_absent = TRUE) %>%
       dplyr::mutate_all(~stringr::str_replace_all(., generalized_model_names[1], model_names[1])) %>%
       dplyr::mutate_all(~stringr::str_replace_all(., generalized_model_names[2], model_names[2])) %>%
       dplyr::mutate_all(~stringr::str_replace_all(., generalized_model_names[3], model_names[3])) %>%

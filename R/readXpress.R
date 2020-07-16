@@ -53,11 +53,11 @@ readXpress <- function(filedir, design = FALSE) {
     #extract model names from .csv file(s)
     model_names <- stringr::str_replace(
       stringr::str_replace(data_file_list, "[:punct:]", ""),
-      ".RDS|.Rds|.rds", "")
+      "RDS|Rds|rds", "")
 
     #open data from .Rds file(s), name, join, and convert worm_length to microns
     raw_data_read <- purrr::map2_dfr(data_file_path_list, model_names,
-                                     ~read_rds(.x) %>%
+                                     ~readr::read_rds(.x) %>%
                                        dplyr::mutate(model = .y)) %>%
       dplyr::mutate(worm_length_um = 3.2937 * Worm_Length)
 
@@ -70,11 +70,11 @@ readXpress <- function(filedir, design = FALSE) {
     #extract model names from .csv file(s)
     model_names <- stringr::str_replace(
       stringr::str_replace(data_file_list, "[:punct:]", ""),
-      ".RDS|.Rds|.rds", "")
+      "csv", "")
 
     #open data from .csv file(s), name, join, and convert worm_length to microns
     raw_data_read <- purrr::map2_dfr(data_file_path_list, model_names,
-                                     ~read_csv(.x) %>%
+                                     ~readr::read_csv(.x) %>%
                                        dplyr::mutate(model = .y)) %>%
       dplyr::mutate(worm_length_um = 3.2937 * Worm_Length)
 
