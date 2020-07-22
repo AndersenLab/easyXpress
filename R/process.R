@@ -32,7 +32,8 @@ process <- function(flag_data, ...) {
                      q75_wormlength_um = as.numeric(quantile(worm_length_um, probs = 0.75, na.rm = TRUE)[1]),
                      q90_wormlength_um = as.numeric(quantile(worm_length_um, probs = 0.90, na.rm = TRUE)[1]),
                      max_wormlength_um = as.numeric(quantile(worm_length_um, na.rm = TRUE)[5]),
-                     cv_wormlength_um = (sd_wormlength_um/mean_wormlength_um)) %>%
+                     cv_wormlength_um = (sd_wormlength_um/mean_wormlength_um),
+                     n = n()) %>%
     dplyr::left_join(., raw_data) %>%
     dplyr::select(-contains("Worm_"),
                   -contains("Distance_"),
@@ -59,7 +60,8 @@ process <- function(flag_data, ...) {
                      q75_wormlength_um = as.numeric(quantile(worm_length_um, probs = 0.75, na.rm = TRUE)[1]),
                      q90_wormlength_umF = as.numeric(quantile(worm_length_um, probs = 0.90, na.rm = TRUE)[1]),
                      max_wormlength_um = as.numeric(quantile(worm_length_um, na.rm = TRUE)[5]),
-                     cv_wormlength_um = (sd_wormlength_um/mean_wormlength_um)) %>%
+                     cv_wormlength_um = (sd_wormlength_um/mean_wormlength_um),
+                     n = n()) %>%
     dplyr::left_join(., processed_data) %>%
     dplyr::select(-contains("Worm_"),
                   -contains("Distance_"),
