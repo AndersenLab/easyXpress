@@ -32,7 +32,14 @@ Imports:
     dplyr,
     purrr,
     readr,
-    stringr
+    stringr,
+    rebus,
+    png,
+    cowplot,
+    grid,
+    stats,
+    rlang,
+    ggplot2
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
