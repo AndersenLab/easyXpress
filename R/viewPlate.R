@@ -4,8 +4,8 @@
 #'
 #' @param df Unsummarised CellProfiler data output from the
 #' \code{Xpress} functon. Either the raw or processed data can be viewed.
-#' @param plate Numerical value of desired plate to be analyzed
-#' @return A ggplot object with selected plate
+#' @param plate Desired plate to be analyzed.
+#' @return A ggplot object with selected plate.
 #' @importFrom ggplot2 ggplot aes geom_point theme_bw theme labs
 #'
 #' @export
@@ -13,7 +13,7 @@
 
 viewPlate <- function(df, plate) {
   plot_dat <- df %>%
-    dplyr::filter(Metadata_Plate == glue::glue("p{plate}")) %>%
+    dplyr::filter(Metadata_Plate == glue::glue("{plate}")) %>%
     dplyr::mutate(Well = Metadata_Well) %>%
     tidyr::separate(Metadata_Well, into=c("Row","Column"), sep=c("(?<=[A-Za-z])(?=[0-9])")) %>%
     dplyr::mutate(Column = as.numeric(Column))

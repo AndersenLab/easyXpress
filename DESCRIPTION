@@ -41,7 +41,8 @@ Imports:
     rlang,
     ggplot2,
     viridis,
-    plotly
+    plotly,
+    tibble
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true

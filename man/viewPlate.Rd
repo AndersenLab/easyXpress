@@ -10,10 +10,10 @@ viewPlate(df, plate)
 \item{df}{Unsummarised CellProfiler data output from the
 \code{Xpress} functon. Either the raw or processed data can be viewed.}
 
-\item{plate}{Numerical value of desired plate to be analyzed}
+\item{plate}{Desired plate to be analyzed.}
 }
 \value{
-A ggplot object with selected plate
+A ggplot object with selected plate.
 }
 \description{
 \code{viewPlate} plots the processed plate.
