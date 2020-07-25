@@ -39,7 +39,9 @@ Imports:
     grid,
     stats,
     rlang,
-    ggplot2
+    ggplot2,
+    viridis,
+    plotly
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
