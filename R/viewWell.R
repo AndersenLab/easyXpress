@@ -68,6 +68,7 @@ viewWell <- function(df, img_dir, plate, well, boxplot = TRUE) {
     ggplot2::scale_x_continuous(expand=c(0,0),limits=c(0,w)) +
     ggplot2::scale_y_reverse(expand=c(0,0),limits=c(h,0)) +
     ggplot2::coord_equal() +
+    ggplot2::theme_bw() +
     ggplot2::annotate("path",
                       x = w/2 + well_radius*cos(seq(0,2*pi,length.out=100)),
                       y = h/2 + well_radius*sin(seq(0,2*pi,length.out=100)), color = "red", alpha = 0.25) +
@@ -83,7 +84,6 @@ viewWell <- function(df, img_dir, plate, well, boxplot = TRUE) {
       ggplot2::geom_boxplot(aes(x = Metadata_Well, y = worm_length_um), outlier.shape = NA) +
       ggplot2::geom_jitter(shape = 21, width = 0.25, size = 3, aes(x = Metadata_Well, y = worm_length_um, fill = object_type)) +
       ggplot2::labs(x ="") +
-      ggplot2::ylim(0,1000) +
       ggplot2::theme_bw() +
       ggplot2::guides(fill = F)
 
