@@ -18,6 +18,7 @@
 #' @importFrom dplyr %>%
 #' @export
 
+
 readXpress <- function(filedir, design = FALSE) {
   #create data file list
   data_file_list <- list.files(glue::glue("{filedir}/cp_data"))
@@ -93,8 +94,7 @@ readXpress <- function(filedir, design = FALSE) {
     design_file_list <- list.files(glue::glue("{filedir}/design"))
 
     #join design file to raw_data. na.omit will remove rows with any NAs
-    design_file <- stats::na.omit(readr::read_csv(
-      glue::glue("{filedir}/design/{design_file_list[1]}"))) %>%
+    design_file <- readr::read_csv(glue::glue("{filedir}/design/{design_file_list[1]}")) %>%
       dplyr::mutate(Metadata_Plate = dplyr::case_when(
         Metadata_Plate == 1 ~ "01",
         Metadata_Plate == 2 ~ "02",
