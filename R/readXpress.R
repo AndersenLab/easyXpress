@@ -12,6 +12,8 @@
 #' The design file should be located in a sub-folder
 #' of the filedir named design.
 #' If FALSE no design file will be joined.
+#' @param rdafile The file name of a particular .rda file
+#' to load from the cp_data sub-folder.
 #' @return A single data frame named raw_data that contains
 #' all CellProfiler model outputs as well as experimental treatments
 #' if a design file is used.
@@ -19,7 +21,8 @@
 #' @export
 
 
-readXpress <- function(filedir, design = FALSE) {
+readXpress <- function(filedir, design = FALSE, rdafile = NULL) {
+  if (is.null(rdafile)) {
   #create data file list
   data_file_list <- list.files(glue::glue("{filedir}/cp_data"))
   data_file_path_list <- list.files(glue::glue("{filedir}/cp_data"),
@@ -80,6 +83,21 @@ readXpress <- function(filedir, design = FALSE) {
       dplyr::mutate(worm_length_um = 3.2937 * Worm_Length)
 
   }
+  } else { #if you are specifying a particular .rda file
+    message(glue::glue("loading from specified .rda: {filedir}/cp_data/{rdafile}"))# laod rda file
+
+    #open data from .rda file
+    load(glue::glue("{filedir}/cp_data/{rdafile}"))
+
+    #extract names of data objects from .RData file
+    data_names <- grep("model.outputs", ls(), value = TRUE)
+
+    #join data objects and convert worm_length to microns
+    # dynGet might not be what we want here look for alternatives
+    raw_data_read <- purrr::map(data_names, dynGet) %>%
+      purrr::reduce(dplyr::full_join) %>%
+      dplyr::mutate(worm_length_um = 3.2937 * Worm_Length)
+    }
 
   if (!design) { #if you are not using a design file
     print("NO DESIGN FILE LOADED. SET DESIGN = TRUE TO LOAD A DESIGN FILE")
