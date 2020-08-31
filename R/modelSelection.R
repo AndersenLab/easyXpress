@@ -1,6 +1,6 @@
 #' modelSelection
 #'
-#' This function will assign the appropraite CellProfiler model
+#' This function will assign the appropriate CellProfiler model
 #' to each primary object in a raw_data object output
 #' by the readXpress function.
 #'
