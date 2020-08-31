@@ -1,3 +1,19 @@
+#' Generalized model for one worm object
+#'
+#' This data frame conains the generalized model selection dataframe
+#' for a one worm model CellProfiler run.
+#'
+#' @name model_select_1
+#' @format A dataframe with 3 rows and 4 variables:
+#' \describe{
+#'   \item{m1}{number of objects identified as model number 1}
+#'   \item{model_select}{final selected model}
+#'   \item{model_flag}{flag classifier}
+#'   \item{cluster_flag}{indicates presence of a cluster}
+#' }
+NULL
+
+
 #' Generalized model for two worm objects
 #'
 #' This data frame conains the generalized model selection dataframe

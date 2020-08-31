@@ -24,7 +24,23 @@ modelSelection <- function(df) {
     dplyr::pull(model)
 
   #load model selection file based on number of models selected.
-  if (model_num == 2) {
+  if (model_num == 1) {
+    # read generalized model selection df
+    generalized_model_selection_df <- easyXpress::model_select_1
+
+    # exctract generalized model names
+    generalized_model_names <- stats::na.omit(
+      unique(generalized_model_selection_df$model_select))
+
+    # replace generalized model names with model names from df
+    model_selection_df <- generalized_model_selection_df %>%
+      data.table::setnames(., old = as.vector(colnames(generalized_model_selection_df[1])), new = model_names, skip_absent = TRUE) %>%
+      dplyr::mutate_all(~stringr::str_replace_all(., generalized_model_names[1], model_names[1])) %>%
+      dplyr::mutate_at(dplyr::vars(model_names), as.numeric)
+
+    message(glue::glue("SELECTED {model_num} MODEL FILE"))
+
+  }  else if (model_num == 2) {
     # read generalized model selection df
     generalized_model_selection_df <- easyXpress::model_select_2
 

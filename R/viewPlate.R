@@ -26,7 +26,7 @@ viewPlate <- function(df, plate) {
                     geom_point(size = 2) +
                     theme_bw(16) +
                     theme(legend.position = "right") +
-                    labs(x = "Column", y = "Row", title = glue::glue("Plate{ plate}")) +
+                    labs(x = "Column", y = "Row", title = glue::glue("Plate: { plate}")) +
                     viridis::scale_color_viridis(), tooltip = "key")
 
   return(plt)
