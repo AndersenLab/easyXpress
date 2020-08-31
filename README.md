@@ -110,12 +110,11 @@ For further information use the command `?viewWell` to access the documentation.
 
 For further information use the command `?viewDose` to access the documentation.
 
-```
-
 ### Overview
 
 ![Overview](./READMEfiles/Overview.png)
 
+  
 ### Example
 ```r
 library(easyXpress)
@@ -141,7 +140,6 @@ processed <- process(raw_flagged, Metadata_Well)
 # Review suspect data with image overlay
 proc_imgs <- "projects/20200812_toxin01A/processed_images"
 p1 <- viewWell(df, img_dir = proc_imgs, plate = "p02", well = "A05", boxplot = TRUE)
-
 
 ...
 # Using the wrapper function
