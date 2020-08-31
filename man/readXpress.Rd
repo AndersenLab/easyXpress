@@ -4,7 +4,7 @@
 \alias{readXpress}
 \title{readXpress}
 \usage{
-readXpress(filedir, design = FALSE)
+readXpress(filedir, design = FALSE, rdafile = NULL)
 }
 \arguments{
 \item{filedir}{The directory with CellProfiler data.
@@ -16,6 +16,9 @@ will be joined to data.
 The design file should be located in a sub-folder
 of the filedir named design.
 If FALSE no design file will be joined.}
+
+\item{rdafile}{The file name of a particular .rda file
+to load from the cp_data sub-folder.}
 }
 \value{
 A single data frame named raw_data that contains

@@ -16,7 +16,7 @@ the best CellProfiler model for detecting worm objects within
 each primary object detected by CellProfiler.
 }
 \description{
-This function will assign the appropraite CellProfiler model
+This function will assign the appropriate CellProfiler model
 to each primary object in a raw_data object output
 by the readXpress function.
 }
