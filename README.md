@@ -1,4 +1,5 @@
 # easyXpress
+![easyXpress](./READMEfiles/easyXpress_hex.png)
 
 easyXpress is specialized for use with CellProfiler generated worm image data. The package is rather specific to use in the Andersen Lab and, therefore, is not available from CRAN. To install easyXpress you will need the [`devtools`](https://github.com/hadley/devtools) package. You can install `devtools` and `easyXpress` using the commands below:
 
