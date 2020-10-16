@@ -58,7 +58,7 @@ process <- function(flag_data, ...) {
                      median_wormlength_um = median(worm_length_um, na.rm = T),
                      sd_wormlength_um = sd(worm_length_um, na.rm = T),
                      q75_wormlength_um = as.numeric(quantile(worm_length_um, probs = 0.75, na.rm = TRUE)[1]),
-                     q90_wormlength_umF = as.numeric(quantile(worm_length_um, probs = 0.90, na.rm = TRUE)[1]),
+                     q90_wormlength_um = as.numeric(quantile(worm_length_um, probs = 0.90, na.rm = TRUE)[1]),
                      max_wormlength_um = as.numeric(quantile(worm_length_um, na.rm = TRUE)[5]),
                      cv_wormlength_um = (sd_wormlength_um/mean_wormlength_um),
                      n = dplyr::n()) %>%
