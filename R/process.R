@@ -1,7 +1,7 @@
 #' process
 #'
 #' @param flag_data Flagged data to be summarized
-#' @param ... specify variable used to summarize data
+#' @param ... specify variable used to summarize data. Variable names can be listed in succession.
 #' @return List with four elements: raw data, processed data, and summaries for both datasets.
 #' @importFrom stats quantile sd median
 #' @importFrom dplyr contains
@@ -33,7 +33,7 @@ process <- function(flag_data, ...) {
                      q90_wormlength_um = as.numeric(quantile(worm_length_um, probs = 0.90, na.rm = TRUE)[1]),
                      max_wormlength_um = as.numeric(quantile(worm_length_um, na.rm = TRUE)[5]),
                      cv_wormlength_um = (sd_wormlength_um/mean_wormlength_um),
-                     n = dplyr::n()) %>%
+                     n = dplyr::n(), .groups = "drop") %>%
     dplyr::left_join(., raw_data) %>%
     dplyr::select(-contains("Worm_"),
                   -contains("Distance_"),
@@ -61,7 +61,7 @@ process <- function(flag_data, ...) {
                      q90_wormlength_um = as.numeric(quantile(worm_length_um, probs = 0.90, na.rm = TRUE)[1]),
                      max_wormlength_um = as.numeric(quantile(worm_length_um, na.rm = TRUE)[5]),
                      cv_wormlength_um = (sd_wormlength_um/mean_wormlength_um),
-                     n = dplyr::n()) %>%
+                     n = dplyr::n(), .groups = "drop") %>%
     dplyr::left_join(., processed_data) %>%
     dplyr::select(-contains("Worm_"),
                   -contains("Distance_"),

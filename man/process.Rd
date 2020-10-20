@@ -9,7 +9,7 @@ process(flag_data, ...)
 \arguments{
 \item{flag_data}{Flagged data to be summarized}
 
-\item{...}{specify variable used to summarize data}
+\item{...}{specify variable used to summarize data. Variable names can be listed in succession.}
 }
 \value{
 List with four elements: raw data, processed data, and summaries for both datasets.

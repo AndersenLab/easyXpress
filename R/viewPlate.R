@@ -2,8 +2,8 @@
 #'
 #'\code{viewPlate} plots the processed plate.
 #'
-#' @param df Unsummarised CellProfiler data output from the
-#' \code{Xpress} functon. Either the raw or processed data can be viewed.
+#' @param df Summarised CellProfiler data output from the
+#' \code{Xpress} or \code{process} functons. Either the raw or processed data can be viewed.
 #' @param plate Desired plate to be analyzed.
 #' @return A ggplot object with selected plate.
 #' @importFrom ggplot2 ggplot aes geom_point theme_bw theme labs

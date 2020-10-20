@@ -4,13 +4,17 @@
 \alias{edgeFlag}
 \title{edgeFlag}
 \usage{
-edgeFlag(model_selected_data, radius = 825)
+edgeFlag(model_selected_data, radius = 825, center_x = 1024, center_y = 1024)
 }
 \arguments{
 \item{model_selected_data}{A data frame where selected worm model
 denotations have been joined and assigned to each worm object}
 
 \item{radius}{Radius in pixels away from image center with even illumination.}
+
+\item{center_x}{center x position of image}
+
+\item{center_y}{center y position of image}
 }
 \value{
 A single data frame with worm objects on the edge

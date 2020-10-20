@@ -12,12 +12,12 @@
 #' @export
 #'
 
-Xpress <- function(filedir, design = FALSE, radius = 825, cluster_flag = TRUE, well_edge_flag = TRUE, ...) {
+Xpress <- function(filedir, rdafile, ..., design = FALSE, radius = 825, center_x = 1024, center_y = 1024, cluster_flag = TRUE, well_edge_flag = TRUE) {
 
-  output <- readXpress(filedir) %>%
+  output <- readXpress(filedir = filedir, rdafile = rdafile, design = design) %>%
     modelSelection(df = .) %>%
-    edgeFlag(model_selected_data = .) %>%
-    setFlags(data = .) %>%
+    edgeFlag(model_selected_data = ., radius = radius, center_x = center_x, center_y = center_y) %>%
+    setFlags(data = ., cluster_flag = cluster_flag, well_edge_flag = well_edge_flag) %>%
     process(flag_data = ., ...)
 
   return(output)

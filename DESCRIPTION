@@ -18,15 +18,16 @@ Authors@R: c(
            email = "sjwidmay@gmail.com",
            comment = c(ORCID = "0000-0002-1200-4768")))
 Description: A workflow for the reading, processing, and visualization
-    of data obtained from the Molecular Devices ImageExpress Nano Imager.
+    of images obtained from the Molecular Devices ImageExpress Nano Imager
+    and processed with CellProfiler's WormToolbox.
     Includes a powerful suite of functions for the rapid processing
     and analysis of large high-throughput image based datasets.
 Depends:
-    R (>= 3.2.0)
+    R (>= 3.5.0)
 Imports:
     tidyselect,
     data.table,
-    here,
+    rprojroot,
     glue,
     tidyr,
     dplyr,
@@ -42,10 +43,14 @@ Imports:
     ggplot2,
     viridis,
     plotly,
-    tibble
+    tibble,
+    tidyverse
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Suggests:
-    devtools
+    devtools,
+    knitr,
+    rmarkdown
 RoxygenNote: 7.1.0
+VignetteBuilder: knitr

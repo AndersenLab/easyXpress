@@ -4,21 +4,20 @@
 \alias{readXpress}
 \title{readXpress}
 \usage{
-readXpress(filedir, design = FALSE, rdafile = NULL)
+readXpress(filedir, rdafile, design = FALSE)
 }
 \arguments{
 \item{filedir}{The directory with CellProfiler data.
-This directory should have CellProfiler data in a sub-folder named cp_data.
-The data can be in .Rda, .Rds, or .csv formats.}
+This directory should have CellProfiler .Rda output in a sub-folder named cp_data.}
+
+\item{rdafile}{The file name of a particular .rda file
+to load from the cp_data sub-folder.}
 
 \item{design}{Logical parameter, if TRUE then a design file
 will be joined to data.
 The design file should be located in a sub-folder
 of the filedir named design.
 If FALSE no design file will be joined.}
-
-\item{rdafile}{The file name of a particular .rda file
-to load from the cp_data sub-folder.}
 }
 \value{
 A single data frame named raw_data that contains
@@ -26,7 +25,7 @@ all CellProfiler model outputs as well as experimental treatments
 if a design file is used.
 }
 \description{
-This is the primary fuction for reading CellProfiler data
+This is the primary function for reading CellProfiler data
 into R with this package.
-It is built exclusively for use with worm image data.
+It is built exclusively for use with worm image data saved as a .RData file
 }

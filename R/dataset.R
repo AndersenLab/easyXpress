@@ -1,6 +1,6 @@
 #' Generalized model for one worm object
 #'
-#' This data frame conains the generalized model selection dataframe
+#' This data frame contains the generalized model selection dataframe
 #' for a one worm model CellProfiler run.
 #'
 #' @name model_select_1
@@ -16,7 +16,7 @@ NULL
 
 #' Generalized model for two worm objects
 #'
-#' This data frame conains the generalized model selection dataframe
+#' This data frame contains the generalized model selection dataframe
 #' for a two worm model CellProfiler run.
 #'
 #' @name model_select_2
@@ -33,7 +33,7 @@ NULL
 
 #' Generalized model for three worm objects
 #'
-#' This data frame conains the generalized model selection dataframe
+#' This data frame contains the generalized model selection dataframe
 #' for a three worm model CellProfiler run.
 #'
 #' @name model_select_3
@@ -51,7 +51,7 @@ NULL
 
 #' Generalized model for four worm objects
 #'
-#' This data frame conains the generalized model selection dataframe
+#' This data frame contains the generalized model selection dataframe
 #' for a four worm model CellProfiler run.
 #'
 #' @name model_select_4
