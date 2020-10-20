@@ -34,7 +34,7 @@ If you do not have condition information (i.e. drug names, drug concentrations, 
 you do not need the `design` directory.
 
 ```
-/projects/20200812_toxin01A
+/projects/20200812_example
 ├── cp_data
 │   ├── CellProfiler-Analysis_20191119_example_data.RData
 └── processed_images
