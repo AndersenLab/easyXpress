@@ -80,11 +80,7 @@ This can be done in R -
 library(easyXpress)
 browseVignettes(package = "easyXpress")
 ```
-=======
-For more detailed information regarding use of these functions, see the vignette. 
->>>>>>> 258aa11b72929efa07472625ed281ed15142da0d
 
-```
 <img src="man/figures/Overview.png" width=600 />
 
 
