@@ -1,5 +1,5 @@
 ---
-title: "easyXpress"
+title: "A walk-through of easyXpress"
 author: "Author: Joy Nyaanga"
 date: "`r format(Sys.time(), '%d %b %Y')`"
 output: 
@@ -8,7 +8,7 @@ output:
     number_sections: false
 
 vignette: >
-  %\VignetteIndexEntry{easyXpress}
+  %\VignetteIndexEntry{A walk-through of easyXpress}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -60,7 +60,7 @@ For more information regarding directory structure, see [`R/easyXpress`](https:/
 
 # Define experimental directory and file name
 dirs <- rprojroot::find_package_root_file("vignettes", "example_data")
-datafile <- "CellProfiler-Analysis_example_data.RData"
+datafile <- "CellProfiler-Analysis_20191119_example_data.RData"
 
 # Read in the data
 raw <- easyXpress::readXpress(filedir = dirs, rdafile = datafile, design = FALSE)
@@ -172,10 +172,10 @@ Either the raw or processed data can be viewed. The user must specify the plate 
 This function will output a plotly object with the selected plate information displayed.
 
 ```{r eval=FALSE, include=TRUE}
-# Save summarized_processed_data list element to new variable
+# Saving summarized_processed_data list element to new variable
 sumproc_data <- processed[[4]]
 
-easyXpress::viewPlate(sumproc_data, "p01")
+easyXpress::viewPlate(sumproc_data, "p05")
 
 ## Not run ##
 ```
@@ -188,7 +188,7 @@ It returns a plot of the processed well image with object centroids colored by t
 Optional argument `boxplot = TRUE` includes a boxplot of the objct data with the well image.
 
 ```{r fig.height=5, fig.width=7}
-## This example analyzes the processed data
+## This example shows the processed data
 
 # Saving processed_data list element to new variable
 proc_data <- processed[[2]]
@@ -196,7 +196,7 @@ proc_data <- processed[[2]]
 # Define processed image directory
 proc_img_dir <- rprojroot::find_package_root_file("vignettes", "example_data", "ProcessedImages")
 
-easyXpress::viewWell(proc_data, proc_img_dir, "p46", "C01", boxplot = TRUE) 
+easyXpress::viewWell(proc_data, proc_img_dir, "p57", "C07", boxplot = TRUE) 
 ```
 
 

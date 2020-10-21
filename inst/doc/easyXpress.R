@@ -13,7 +13,7 @@ library(easyXpress)
 
 # Define experimental directory and file name
 dirs <- rprojroot::find_package_root_file("vignettes", "example_data")
-datafile <- "CellProfiler-Analysis_example_data.RData"
+datafile <- "CellProfiler-Analysis_20191119_example_data.RData"
 
 # Read in the data
 raw <- easyXpress::readXpress(filedir = dirs, rdafile = datafile, design = FALSE)
@@ -48,15 +48,15 @@ knitr::kable(summary(processed), caption = "Processed list items")
 final_df <- easyXpress::Xpress(filedir = dirs, rdafile = datafile, Metadata_Plate, Metadata_Well)
 
 ## ----eval=FALSE, include=TRUE--------------------------------------------------------------------------------------------------------------------------------
-#  # Save summarized_processed_data list element to new variable
+#  # Saving summarized_processed_data list element to new variable
 #  sumproc_data <- processed[[4]]
 #  
-#  easyXpress::viewPlate(sumproc_data, "p01")
+#  easyXpress::viewPlate(sumproc_data, "p05")
 #  
 #  ## Not run ##
 
 ## ----fig.height=5, fig.width=7-------------------------------------------------------------------------------------------------------------------------------
-## This example analyzes the processed data
+## This example shows the processed data
 
 # Saving processed_data list element to new variable
 proc_data <- processed[[2]]
@@ -64,5 +64,5 @@ proc_data <- processed[[2]]
 # Define processed image directory
 proc_img_dir <- rprojroot::find_package_root_file("vignettes", "example_data", "ProcessedImages")
 
-easyXpress::viewWell(proc_data, proc_img_dir, "p46", "C01", boxplot = TRUE) 
+easyXpress::viewWell(proc_data, proc_img_dir, "p57", "C07", boxplot = TRUE) 
 

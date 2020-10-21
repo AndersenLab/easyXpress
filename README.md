@@ -73,7 +73,7 @@ and `A01` is the well name.
 The complete easyXpress package consists of nine functions: 
 `readXpress`, `modelSelection`, `edgeFlag`, `setFlags`, `process`, `Xpress`, `viewPlate`, `viewWell`, and `viewDose`.
 
-For more detailed information regarding use of these functions, see the vignette.
+For more detailed information regarding use of these functions, see the vignette: **A walk-through of easyXpress**.
 
 <img src="man/figures/Overview.png" width=600 />
 
