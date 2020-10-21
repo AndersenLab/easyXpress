@@ -74,6 +74,12 @@ The complete easyXpress package consists of nine functions:
 `readXpress`, `modelSelection`, `edgeFlag`, `setFlags`, `process`, `Xpress`, `viewPlate`, `viewWell`, and `viewDose`.
 
 For more detailed information regarding use of these functions, see the vignette: **A walk-through of easyXpress**.
+This can be done in R -
+
+```r
+library(easyXpress)
+browseVignettes(package = "easyXpress")
+```
 
 <img src="man/figures/Overview.png" width=600 />
 
