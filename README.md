@@ -69,7 +69,7 @@ In the file named `20191119-growth-p01-m2x_A01_overlay.png` the first section `2
 `growth` is the name of the experiment, `p01` is the plate number, `m2x` is the magnification used for imaging, 
 and `A01` is the well name.
 
-### Overview 
+## Package Overview 
 The complete easyXpress package consists of nine functions: 
 `readXpress`, `modelSelection`, `edgeFlag`, `setFlags`, `process`, `Xpress`, `viewPlate`, `viewWell`, and `viewDose`.
 
