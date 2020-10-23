@@ -4,15 +4,18 @@
 \name{easyXpress-package}
 \alias{easyXpress}
 \alias{easyXpress-package}
-\title{easyXpress}
+\title{easyXpress: A Package to Read, Process, and Analyze Worm Data Generated from CellProfiler’s WormToolbox}
 \description{
+\if{html}{\figure{logo.png}{options: align='right' alt='logo' width='120'}}
+
 A workflow for the reading, processing, and visualization
-    of data obtained from the Molecular Devices ImageExpress Nano Imager.
+    of images obtained from the Molecular Devices ImageExpress Nano Imager
+    and processed with CellProfiler's WormToolbox.
     Includes a powerful suite of functions for the rapid processing
     and analysis of large high-throughput image based datasets.
 }
 \details{
-add package details  here
+For a quick introduction to \pkg{easyXpress} see the vignette \href{../doc/easyXpress.html}{A walk-through of easyXpress}.
 }
 \author{
 \strong{Maintainer}: Joy Nyaanga \email{jnyaan@gmail.com} (\href{https://orcid.org/0000-0002-1402-9213}{ORCID})

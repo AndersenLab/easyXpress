@@ -14,6 +14,6 @@ A dataframe with 9 rows and 5 variables:
 }
 }
 \description{
-This data frame conains the generalized model selection dataframe
+This data frame contains the generalized model selection dataframe
 for a two worm model CellProfiler run.
 }

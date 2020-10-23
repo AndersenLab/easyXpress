@@ -7,8 +7,8 @@
 viewPlate(df, plate)
 }
 \arguments{
-\item{df}{Unsummarised CellProfiler data output from the
-\code{Xpress} functon. Either the raw or processed data can be viewed.}
+\item{df}{Summarised CellProfiler data output from the
+\code{Xpress} or \code{process} functons. Either the raw or processed data can be viewed.}
 
 \item{plate}{Desired plate to be analyzed.}
 }

@@ -6,17 +6,24 @@
 \usage{
 Xpress(
   filedir,
+  rdafile,
+  ...,
   design = FALSE,
   radius = 825,
+  center_x = 1024,
+  center_y = 1024,
   cluster_flag = TRUE,
-  well_edge_flag = TRUE,
-  ...
+  well_edge_flag = TRUE
 )
 }
 \arguments{
 \item{filedir}{The directory with CellProfiler data.
-This directory should have CellProfiler data in a sub-folder named cp_data.
-The data can be in .Rda, .Rds, or .csv formats.}
+This directory should have CellProfiler .Rda output in a sub-folder named cp_data.}
+
+\item{rdafile}{The file name of a particular .rda file
+to load from the cp_data sub-folder.}
+
+\item{...}{specify variable used to summarize data. Variable names can be listed in succession.}
 
 \item{design}{Logical parameter, if TRUE then a design file
 will be joined to data.
@@ -26,6 +33,10 @@ If FALSE no design file will be joined.}
 
 \item{radius}{Radius in pixels away from image center with even illumination.}
 
+\item{center_x}{center x position of image}
+
+\item{center_y}{center y position of image}
+
 \item{cluster_flag}{Logical parameter; do you want worm objects
 in a cluster to be excluded when calculating well outliers?
 We recommend TRUE as the default.}
@@ -33,8 +44,6 @@ We recommend TRUE as the default.}
 \item{well_edge_flag}{Logical parameter; do you want worm objects
 in close proximity to the well edge to be excluded
 when calculating well outliers? We recommend TRUE as the default.}
-
-\item{...}{specify variable used to summarize data}
 }
 \value{
 List with four elements: raw data, processed data, and summaries for both datasets.

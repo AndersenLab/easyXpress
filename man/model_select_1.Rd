@@ -13,6 +13,6 @@ A dataframe with 3 rows and 4 variables:
 }
 }
 \description{
-This data frame conains the generalized model selection dataframe
+This data frame contains the generalized model selection dataframe
 for a one worm model CellProfiler run.
 }
