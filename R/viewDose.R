@@ -127,17 +127,12 @@ viewDose <- function(data, strain_name, drug_name, proc_img_dir){
         cluster_flag == F & well_edge_flag == F & well_outlier_flag == F & model == model_levels[4] ~ as.character(glue::glue("{model_levels[4]}_model"))))
   }
 
-  # use stringr to find middle part of directory that contains the date and experiment name.
-  date <- DGT %R% DGT %R% DGT %R% DGT %R% DGT %R% DGT %R% DGT %R% DGT
-  separator <- char_class("/_-")
-  run <- "RUN" %R% DGT %R% DGT
-  name1 <- separator %R% date %R% separator %R% one_or_more(WRD)
-  name2 <- date %R% separator %R% one_or_more(WRD)
-  dir_date_name <- stringr::str_extract(proc_img_dir, pattern = name1)
-  date_name <- stringr::str_extract(proc_img_dir, pattern = name2)
-
   # Make processed image names
   proc_img_names <- stringr::str_replace(raw_img_names, pattern = ".TIF", replacement = "_overlay.png")
+
+  # get date and experiment name
+  date <- as.character(stringr::str_split(proc_img_names[1], pattern = "-", simplify = T)[1])
+  project <- as.character(stringr::str_split(proc_img_names[1], pattern = "-", simplify = T)[2])
 
   # make list of images for dose response
   dose_proc_img_list <- list()
@@ -146,7 +141,7 @@ viewDose <- function(data, strain_name, drug_name, proc_img_dir){
     dose_proc_img_list[[i]] <- img
   }
 
-  # find dimensions of images
+  # find dimensions of images. Assuming all are identical.
   h<-dim(dose_proc_img_list[[1]])[1] # image height
   w<-dim(dose_proc_img_list[[1]])[2] # image width
 
@@ -155,8 +150,8 @@ viewDose <- function(data, strain_name, drug_name, proc_img_dir){
   for(i in 1:length(proc_img_names)){
 
     #set well center
-    edge_flag_center_x <- 1024
-    edge_flag_center_y <- 1024
+    edge_flag_center_x <- w/2
+    edge_flag_center_y <- h/2
     edge_flag_radius <- unique(dose_dat$well_edge_flag_radius)
 
     #set object_colors
@@ -176,7 +171,7 @@ viewDose <- function(data, strain_name, drug_name, proc_img_dir){
                          width=grid::unit(1,"npc"), height=grid::unit(1,"npc")), 0, w, 0, -h) + # The minus is needed to get the y scale reversed. these are pixel dim of image
       ggplot2::scale_x_continuous(expand=c(0,0),limits=c(0,w)) +
       ggplot2::scale_y_reverse(expand=c(0,0),limits=c(h,0)) +  # The y scale is reversed because in image the vertical positive direction is typically downward.Also note the limits where h>0 is the first parameter.
-      ggplot2::labs(y = "", x = glue::glue("P{dose_dat %>%
+      ggplot2::labs(y = "", x = glue::glue("{dose_dat %>%
                                   filter(FileName_RawBF == raw_img_names[[i]]) %>%
                                   pull(Metadata_Plate)}_{dose_dat %>%
                                   filter(FileName_RawBF == raw_img_names[[i]]) %>%
@@ -216,7 +211,7 @@ viewDose <- function(data, strain_name, drug_name, proc_img_dir){
 
   # make title
   title <- cowplot::ggdraw() +
-    cowplot::draw_label(glue::glue("{date_name}_{drug_name}_{strain_name}"), fontface = 'bold', x = 0, hjust = 0) +
+    cowplot::draw_label(glue::glue("{date}_{project}_{drug_name}_{strain_name}"), fontface = 'bold', x = 0, hjust = 0) +
     theme(plot.margin = margin(0, 0, 0, 0)) # add margin on the left of the drawing canvas, so title is aligned with left edge of first plot
 
   # Make full dose plot
