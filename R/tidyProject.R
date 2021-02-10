@@ -21,7 +21,6 @@
 #'   created under the directory specified by \code{project_dir}. These folders
 #'   match the directory structure needed to process the images with
 #'   \href{https://github.com/AndersenLab/CellProfiler}{AndersenLab/CellProfiler}.
-#'
 #' @export
 #'
 

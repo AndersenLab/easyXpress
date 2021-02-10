@@ -27,6 +27,11 @@ wellThumbs <- function(project_dir, plates = "all", max_dim = 512) {
   # get full file list of raw .TIF files from raw images directory
   file_list <- list.files(path = glue::glue("{project_dir}/raw_images"), pattern = "*.TIF", full.names = FALSE)
 
+  # return if file list is empty
+  if(length(file_list) == 0) {
+    warning("wellThumbs() could not find any .TIF files")
+  }
+  else {
   # make raw_image_thumbs directory if needed
   fs::dir_create(glue::glue("{project_dir}/raw_image_thumbs"))
 
@@ -64,5 +69,6 @@ wellThumbs <- function(project_dir, plates = "all", max_dim = 512) {
     # write the file
     imager::save.image(thumb, file = save_thumb_path)
   }
-  message("Done")
+  message("wellThumbs Done")
+  }
 }

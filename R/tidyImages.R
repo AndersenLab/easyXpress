@@ -31,21 +31,21 @@ tidyImages <- function(project_dir, rm_other = FALSE) {
     if(rm_other == T) {
       # remove old directories (careful!)
       #get list of all directories not expected to be needed
-      dirs <- tibble(dir = dir(project_dir)) %>%
+      dirs <- tibble::tibble(dir = dir(project_dir)) %>%
         dplyr::filter(!(dir %in% c("raw_images", "raw_plate_thumbs", "raw_image_thumbs"))) %>%
         dplyr::mutate(dir_path = glue::glue("{project_dir}/{dir}")) %>%
         dplyr::pull(dir_path)
       message(glue::glue("Removing non-TIF files and other directories:"))
       message(paste(dirs, .sep = "\n"))
       unlink(dirs, recursive = T) # delete files listed in dirs
-      message(glue::glue("DONE"))
+      message(glue::glue("tidyImage DONE"))
     }
     else{
       message(glue::glue("Not removing non-TIF files and other directories"))
-      message(glue::glue("DONE"))
+      message(glue::glue("tidyImage DONE"))
     }
   }
   else{
-    message(glue::glue("QUIT - no files moved"))
+    message(glue::glue("QUIT tidyImage - no files moved"))
   }
 }
