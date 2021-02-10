@@ -15,7 +15,7 @@ A workflow for the reading, processing, and visualization
     and analysis of large high-throughput image based datasets.
 }
 \details{
-For a quick introduction to \pkg{easyXpress} see the vignette \href{../doc/easyXpress.html}{A walk-through of easyXpress}.
+For a quick introduction to \pkg{easyXpress} see the vignette: \href{../doc/easyXpress.html}{A walk-through of easyXpress}.
 }
 \author{
 \strong{Maintainer}: Joy Nyaanga \email{jnyaan@gmail.com} (\href{https://orcid.org/0000-0002-1402-9213}{ORCID})

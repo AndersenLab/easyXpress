@@ -44,7 +44,8 @@ Imports:
     viridis,
     plotly,
     tibble,
-    tidyverse
+    tidyverse,
+    imager
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
