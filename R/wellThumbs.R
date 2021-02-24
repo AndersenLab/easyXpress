@@ -39,7 +39,7 @@ wellThumbs <- function(project_dir, plates = "all", max_dim = 512) {
     # convert plate sequence to proper format
     plate_pattern_vector = stringr::str_pad(plates, width = 2, side = "left", pad = 0) %>% paste0("-p", ., "-")
     # filter file list to selected plates
-    filtered_file_list <- purrr::map(plate_pattern_vector, str_subset, string = file_list) %>%
+    filtered_file_list <- purrr::map(plate_pattern_vector, stringr::str_subset, string = file_list) %>%
       Reduce(c, .)
   }
   else {
