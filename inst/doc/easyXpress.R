@@ -1,14 +1,14 @@
-## ---- include = FALSE---------------------------------------------------------------------------------------------------------------------------
+## ---- include = FALSE-------------------------------------------------------------------------------------------------------------------------------------
 knitr::opts_chunk$set(
   fig.align = "center",
   collapse = TRUE,
   comment = "#>"
 )
 
-## ----setup--------------------------------------------------------------------------------------------------------------------------------------
+## ----setup------------------------------------------------------------------------------------------------------------------------------------------------
 library(easyXpress)
 
-## ----message=FALSE------------------------------------------------------------------------------------------------------------------------------
+## ----message=FALSE----------------------------------------------------------------------------------------------------------------------------------------
 ## In this example, there is no design file. As such, the argument design = FALSE
 
 # Define experimental directory and file name
@@ -18,41 +18,41 @@ datafile <- "CellProfiler-Analysis_20191119_example_data.RData"
 # Read in the data
 raw <- easyXpress::readXpress(filedir = dirs, rdafile = datafile, design = FALSE)
 
-## ----echo=FALSE, message=FALSE, warning=FALSE---------------------------------------------------------------------------------------------------
+## ----echo=FALSE, message=FALSE, warning=FALSE-------------------------------------------------------------------------------------------------------------
 library(tidyverse)
 subset <- raw %>%
   dplyr::filter(model == "L1") %>%
   dplyr::select(Metadata_Experiment,Metadata_Plate,Metadata_Well,Image_FileName_RawBF,model, worm_length_um) 
 knitr::kable(subset[1:4,], caption = "Subset of data frame")
 
-## ----message=FALSE------------------------------------------------------------------------------------------------------------------------------
+## ----message=FALSE----------------------------------------------------------------------------------------------------------------------------------------
 model_selected <- easyXpress::modelSelection(raw)
 
-## ----echo=FALSE---------------------------------------------------------------------------------------------------------------------------------
+## ----echo=FALSE-------------------------------------------------------------------------------------------------------------------------------------------
 subset <- model_selected
 knitr::kable(subset[1:4,1:9], caption = "Subset of data frame")
 
-## -----------------------------------------------------------------------------------------------------------------------------------------------
+## ---------------------------------------------------------------------------------------------------------------------------------------------------------
 edge_flagged <- easyXpress::edgeFlag(model_selected, radius=825, center_x=1024, center_y=1024)
 
-## ----message=FALSE------------------------------------------------------------------------------------------------------------------------------
+## ----message=FALSE----------------------------------------------------------------------------------------------------------------------------------------
 raw_flagged <- easyXpress::setFlags(edge_flagged, cluster_flag = TRUE, well_edge_flag = TRUE)
 
-## ----message=FALSE, paged.print=TRUE------------------------------------------------------------------------------------------------------------
+## ----message=FALSE, paged.print=TRUE----------------------------------------------------------------------------------------------------------------------
 processed <- easyXpress::process(raw_flagged, Metadata_Plate, Metadata_Well)
 
-## ----echo=FALSE---------------------------------------------------------------------------------------------------------------------------------
+## ----echo=FALSE-------------------------------------------------------------------------------------------------------------------------------------------
 knitr::kable(summary(processed), caption = "Processed list items")
 
-## ----message=FALSE------------------------------------------------------------------------------------------------------------------------------
+## ----message=FALSE----------------------------------------------------------------------------------------------------------------------------------------
 processed <- easyXpress::Xpress(filedir = dirs, rdafile = datafile, Metadata_Plate, Metadata_Well)
 
-## ----include=FALSE------------------------------------------------------------------------------------------------------------------------------
+## ----include=FALSE----------------------------------------------------------------------------------------------------------------------------------------
 rfile <- rprojroot::find_package_root_file("vignettes", "example_data", "cp_data", "processed_plate_data.RData")
 load(rfile)
 
 
-## ----fig.height=5, fig.width=8------------------------------------------------------------------------------------------------------------------
+## ----fig.height=5, fig.width=8----------------------------------------------------------------------------------------------------------------------------
 ## This example uses a new dataset. Reading & processing of this dataset is not shown ##
 
 # To start, save summarized_processed list element to new variable:
@@ -62,22 +62,24 @@ load(rfile)
 easyXpress::viewPlate(processed_plate_data, "p61")
 
 
-## ----fig.height=5, fig.width=7------------------------------------------------------------------------------------------------------------------
+## ----fig.height=5, fig.width=7----------------------------------------------------------------------------------------------------------------------------
 ## This example shows the processed data
 
 # Saving processed_data list element to new variable
 proc_data <- processed[[2]]
+raw_data <- processed[[1]]
 
 # Define processed image directory
 proc_img_dir <- rprojroot::find_package_root_file("vignettes", "example_data", "ProcessedImages")
 
-easyXpress::viewWell(proc_data, proc_img_dir, "p61", "C02", boxplot = TRUE) 
+easyXpress::viewWell(raw_data, proc_img_dir, "p61", "C02", boxplot = TRUE) 
+easyXpress::viewWell(proc_data, proc_img_dir, "p61", "C02", boxplot = TRUE)
 
-## ----include=FALSE------------------------------------------------------------------------------------------------------------------------------
+## ----include=FALSE----------------------------------------------------------------------------------------------------------------------------------------
 rfile <- rprojroot::find_package_root_file("vignettes", "example_data", "cp_data", "processed_dose_data.RData")
 load(rfile)
 
-## ----fig.height=4, fig.width=10-----------------------------------------------------------------------------------------------------------------
+## ----fig.height=4, fig.width=12---------------------------------------------------------------------------------------------------------------------------
 ## This example uses a new dataset. Reading & processing of this dataset is not shown ##
 
 # Saving data elements to new variable
@@ -91,6 +93,7 @@ proc_img_dir <- rprojroot::find_package_root_file("vignettes", "example_data", "
 plot_proc <- easyXpress::viewDose(proc_dose_data, strain_name = "PD1074", drug_name = "paraquat", proc_img_dir = proc_img_dir) 
 plot_raw <- easyXpress::viewDose(raw_dose_data, strain_name = "PD1074", drug_name = "paraquat", proc_img_dir = proc_img_dir) 
 
-## showing processed dose response data only ##
+## showing both raw and processed dose response data ##
 plot_proc
+plot_raw
 

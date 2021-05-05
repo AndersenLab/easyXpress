@@ -73,8 +73,8 @@ and `A01` is the well name.
 The complete easyXpress package consists of nine functions: 
 `readXpress`, `modelSelection`, `edgeFlag`, `setFlags`, `process`, `Xpress`, `viewPlate`, `viewWell`, and `viewDose`.
 
-For more detailed information regarding use of these functions, see the vignette: **A walk-through of easyXpress**.
-This can be done in R -
+For more detailed information regarding use of these functions, see the vignette: [`**A walk-through of easyXpress**`](http://rpubs.com/jnyaanga/765641).
+Alternatively, this can be done in R -
 
 ```r
 library(easyXpress)

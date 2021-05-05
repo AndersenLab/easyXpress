@@ -28,7 +28,7 @@ modelSelection <- function(df) {
     # read generalized model selection df
     generalized_model_selection_df <- easyXpress::model_select_1
 
-    # exctract generalized model names
+    # extract generalized model names
     generalized_model_names <- stats::na.omit(
       unique(generalized_model_selection_df$model_select))
 
@@ -44,7 +44,7 @@ modelSelection <- function(df) {
     # read generalized model selection df
     generalized_model_selection_df <- easyXpress::model_select_2
 
-    # exctract generalized model names
+    # extract generalized model names
     generalized_model_names <- stats::na.omit(
           unique(generalized_model_selection_df$model_select))
 
@@ -61,7 +61,7 @@ modelSelection <- function(df) {
     # read generalized model selection df
     generalized_model_selection_df <- easyXpress::model_select_3
 
-    # exctract generalized model names
+    # extract generalized model names
     generalized_model_names <- stats::na.omit(
           unique(generalized_model_selection_df$model_select))
 
@@ -79,7 +79,7 @@ modelSelection <- function(df) {
     # read generalized model selection df
     generalized_model_selection_df <- easyXpress::model_select_4
 
-    # exctract generalized model names
+    # extract generalized model names
     generalized_model_names <- stats::na.omit(
           unique(generalized_model_selection_df$model_select))
 
