@@ -1,7 +1,7 @@
 # easyXpress <img src="man/figures/logo.png" alt="hex" align = "right" width="130" />
 
 ## Overview 
-This package is designed for the reading, processing, and visualization of images obtained from the Molecular Devices ImageExpress Nano Imager, and processed with CellProfiler's WormToolbox. 
+This package is designed for the reading, processing, and visualization of images obtained from the Molecular Devices ImageExpress Nano Imager, and processed with CellProfiler's WormToolbox.
 
 ## Installation
 `easyXpress` is specialized for use with CellProfiler generated worm image data. The package is rather specific to use in the Andersen Lab and, therefore, is not available from CRAN. To install easyXpress you will need the [`devtools`](https://github.com/hadley/devtools) package. You can install `devtools` and `easyXpress` using the commands below:
@@ -83,7 +83,12 @@ browseVignettes(package = "easyXpress")
 
 <img src="man/figures/Overview.png" width=600 />
 
+### Citation
 
+Please cite the following in publications that use `easyXpress`:
+#### easyXpress: An R package to analyze and visualize high-throughput C. elegans microscopy data generated using CellProfiler
+#### Joy Nyaanga, Timothy A. Crombie, Samuel J. Widmayer, Erik C. Andersen
+#### (2021 August 12) _PLoS ONE_
+#### [PLoS ONE](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0252000) [PubMed](https://pubmed.ncbi.nlm.nih.gov/34383778/)
 
-  
 
