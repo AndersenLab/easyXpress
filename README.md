@@ -10,6 +10,7 @@ This package is designed for the reading, processing, and visualization of image
 install.packages("devtools")
 devtools::install_github("AndersenLab/easyXpress")
 ```
+OS X installations of `easyXpress` require `XQuartz` to be installed. Follow the instructions here to install [XQuartz](https://www.xquartz.org/).
 
 The functionality of the package can be broken down into three main goals:
 
