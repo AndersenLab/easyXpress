@@ -20,7 +20,7 @@ The functionality of the package can be broken down into three main goals:
 
 + Generating diagnositic images.
 
-For more information about implementing CellProfiler to generate data used by the `easyXpress` package, see [`Andersen Lab Image Analysis Pipeline`](https://github.com/AndersenLab/CellProfiler).
+For more information about implementing CellProfiler to generate data used by the `easyXpress` package, see [`AndersenLab/cellprofiler-nf`](https://github.com/AndersenLab/cellprofiler-nf).
 
 ## Directory structure
 
