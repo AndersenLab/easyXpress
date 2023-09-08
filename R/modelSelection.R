@@ -38,7 +38,11 @@ modelSelection <- function(df) {
       dplyr::mutate_all(~stringr::str_replace_all(., generalized_model_names[1], model_names[1])) %>%
       dplyr::mutate_at(dplyr::vars(model_names), as.numeric)
 
-    message(glue::glue("SELECTED {model_num} MODEL FILE"))
+    message(glue::glue("Found {model_num} worm model in data."))
+    for(i in 1:model_num){
+      message(glue::glue("\n{model_names[i]}"))
+    }
+
 
   }  else if (model_num == 2) {
     # read generalized model selection df
@@ -55,7 +59,10 @@ modelSelection <- function(df) {
       dplyr::mutate_all(~stringr::str_replace_all(., generalized_model_names[2], model_names[2])) %>%
       dplyr::mutate_at(dplyr::vars(model_names), as.numeric)
 
-    message(glue::glue("SELECTED {model_num} MODEL FILE"))
+    message(glue::glue("Found {model_num} worm models in data."))
+    for(i in 1:model_num){
+      message(glue::glue("\n{model_names[i]}"))
+    }
 
   } else if (model_num == 3) {
     # read generalized model selection df
@@ -73,7 +80,10 @@ modelSelection <- function(df) {
       dplyr::mutate_all(~stringr::str_replace_all(., generalized_model_names[3], model_names[3])) %>%
       dplyr::mutate_at(dplyr::vars(model_names), as.numeric)
 
-    message(glue::glue("SELECTED {model_num} MODEL FILE"))
+    message(glue::glue("Found {model_num} worm models in data."))
+    for(i in 1:model_num){
+      message(glue::glue("\n{model_names[i]}"))
+    }
 
   } else if (model_num == 4) {
     # read generalized model selection df
@@ -92,11 +102,15 @@ modelSelection <- function(df) {
       dplyr::mutate_all(~stringr::str_replace_all(., generalized_model_names[4], model_names[4])) %>%
       dplyr::mutate_at(dplyr::vars(model_names), as.numeric)
 
-    message(glue::glue("SELECTED {model_num} MODEL FILE"))
+    message(glue::glue("Found {model_num} worm models in data."))
+    for(i in 1:model_num){
+      message(glue::glue("\n{model_names[i]}"))
+    }
   }
-
+  # give a message
+  message("\nSelecting best model for each Parent_WormObject.")
   #join combination file with raw data
-  model_selected_df <- df %>%
+  suppressMessages(model_selected_df <- df %>%
     dplyr::group_by(Metadata_Plate, Metadata_Well, Parent_WormObjects, model) %>%
     dplyr::mutate(num_worms = dplyr::n()) %>%
     dplyr::ungroup() %>%
@@ -113,7 +127,9 @@ modelSelection <- function(df) {
     dplyr::left_join(model_selection_df) %>%
     dplyr::full_join(., df) %>%
     dplyr::filter(model == model_select) %>%
-    dplyr::mutate(model = factor(model, levels = model_names))
+    dplyr::mutate(model = factor(model, levels = model_names)))
 
+  # finsih it
+  message("\nDONE")
   return(model_selected_df)
 }

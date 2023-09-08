@@ -1,6 +1,6 @@
 Package: easyXpress
 Title: A Package to Read, Process, and Analyze Worm Data Generated from CellProfiler’s WormToolbox
-Version: 0.1.0
+Version: 1.1.0
 Authors@R: c(
     person(given = "Joy",
            family = "Nyaanga",

@@ -4,11 +4,17 @@
 \alias{readXpress}
 \title{readXpress}
 \usage{
-readXpress(filedir, rdafile, design = FALSE)
+readXpress(
+  filedir,
+  rdafile,
+  design = FALSE,
+  px_per_um = 3.2937,
+  px_thresh = 30
+)
 }
 \arguments{
 \item{filedir}{The directory with CellProfiler data.
-This directory should have CellProfiler .Rda output in a sub-folder named cp_data.}
+This directory should have CellProfiler .rda output in a sub-folder named cp_data.}
 
 \item{rdafile}{The file name of a particular .rda file
 to load from the cp_data sub-folder.}
@@ -18,14 +24,22 @@ will be joined to data.
 The design file should be located in a sub-folder
 of the filedir named design.
 If FALSE no design file will be joined.}
+
+\item{px_per_um}{The number of pixels per micron (um) for the images.
+This conversion factor will vary for different objectives or microscopes. The default is set for the AndersenLab
+imageXpress nano 2X objective at \code{3.2937} pixels per micron (um). Please enter another conversion factor if necessary.}
+
+\item{px_thresh}{A pixel threshold used to filter small objects from the data. The default setting is \code{30} pixels.
+This is the standard threshold used for the AndersenLab images taken with the imageXpress nano using the 2X objective.
+Please adjust if necessary.}
 }
 \value{
-A single data frame named raw_data that contains
+A single data frame that contains
 all CellProfiler model outputs as well as experimental treatments
-if a design file is used.
+if a design file is used. Several messages are also output to describe how objects have been filtered.
 }
 \description{
 This is the primary function for reading CellProfiler data
 into R with this package.
-It is built exclusively for use with worm image data saved as a .RData file
+It is built exclusively for use with worm image data saved as a .rda file.
 }

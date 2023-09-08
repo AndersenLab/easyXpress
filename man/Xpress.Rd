@@ -18,7 +18,7 @@ Xpress(
 }
 \arguments{
 \item{filedir}{The directory with CellProfiler data.
-This directory should have CellProfiler .Rda output in a sub-folder named cp_data.}
+This directory should have CellProfiler .rda output in a sub-folder named cp_data.}
 
 \item{rdafile}{The file name of a particular .rda file
 to load from the cp_data sub-folder.}
