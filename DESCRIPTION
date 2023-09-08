@@ -45,7 +45,9 @@ Imports:
     plotly,
     tibble,
     tidyverse,
-    imager
+    imager,
+    fs,
+    gridExtra
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
@@ -53,5 +55,5 @@ Suggests:
     devtools,
     knitr,
     rmarkdown
-RoxygenNote: 7.1.0
+RoxygenNote: 7.1.2
 VignetteBuilder: knitr

@@ -15,6 +15,7 @@
 #'   containing individual .png files for each plate.
 #' @importFrom imager load.image resize save.image
 #' @importFrom dplyr %>%
+#' @importFrom stats na.omit
 #' @export
 #'
 
@@ -87,7 +88,7 @@ plateThumbs <- function(project_dir, plates = "all") {
 
       # make grob list from unique plate
       grob_list <- list()
-      file_list2 <- na.omit(unique(uniq_plate$name))
+      file_list2 <- stats::na.omit(unique(uniq_plate$name))
 
       # get dimension of thumbs (assuming all are square and identical). For sizing png file below
       d_img <- dim(imager::load.image(file_list2[1]))
