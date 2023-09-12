@@ -4,10 +4,12 @@
 #' into R with this package.
 #' It is built exclusively for use with worm image data saved as a .rda file.
 #'
-#' @param filedir The directory with CellProfiler data.
-#' This directory should have CellProfiler .rda output in a sub-folder named cp_data.
-#' @param rdafile The file name of a particular .rda file
-#' to load from the cp_data sub-folder.
+#' @param filedir The project directory or directories with CellProfiler data.
+#' Provide a full path to the directory or a vector of project directory paths.
+#' Each directory must have a \code{cellprofiler-nf} output .rda file in a sub-folder named \code{cp_data}.
+#' @param rdafile The specific .rda file name in the \code{cp_data} directory to read.
+#' If multiple project directories are supplied to \code{filedir},
+#' then include the .rda files for each project in the same order of the directories given in \code{filedir}.
 #' @param design Logical parameter, if TRUE then a design file
 #' will be joined to data.
 #' The design file should be located in a sub-folder
@@ -21,23 +23,58 @@
 #' Please adjust if necessary.
 #' @return A single data frame that contains
 #' all CellProfiler model outputs as well as experimental treatments
-#' if a design file is used. Several messages are also output to describe how objects have been filtered.
+#' if a design file is used. If multiple project directories and .rda files are supplied,
+#' they will be joined together. Several messages are also output to describe how objects have been filtered.
 #' @importFrom dplyr %>%
 #' @importFrom utils capture.output
 #' @export
 
 readXpress <- function(filedir, rdafile, design = FALSE, px_per_um = 3.2937, px_thresh = 30) {
-  #loading specified .rda file
-  message(glue::glue("loading from specified .rda:\n{filedir}/cp_data/{rdafile}"))# laod rda file
-  #open data from .rda file
-  load(glue::glue("{filedir}/cp_data/{rdafile}"))
-  #extract names of data objects from .RData file
-  data_names <- grep("model.outputs", ls(), value = TRUE)
-  #join data objects and convert worm_length to microns
-  # dynGet might not be what we want here look for alternatives
-  suppressMessages(raw <- purrr::map(data_names, dynGet) %>%
-    purrr::reduce(suppressMessages(dplyr::full_join)))
-
+  #check for one project directory
+  if(length(filedir) == 1 & length(rdafile) == 1) {
+    # tell use about it
+    message("1 project detected:")
+    #loading specified .rda file
+    message(glue::glue("loading data from .rda:\n{filedir}/cp_data/{rdafile}"))# laod rda file
+    #open data from .rda file
+    load(glue::glue("{filedir}/cp_data/{rdafile}"))
+    #extract names of data objects from .RData file
+    data_names <- grep("model.outputs", ls(), value = TRUE)
+    # dynGet might not be what we want here look for alternatives
+    suppressMessages(raw <- purrr::map(data_names, dynGet) %>%
+                       purrr::reduce(suppressMessages(dplyr::full_join)))
+  }
+  # check on multiple project directories
+  if(length(filedir) > 1 &
+     length(rdafile) > 1 &
+     length(filedir) == length(rdafile)) {
+    # tell use about it
+    message(glue::glue("{length(filedir)} projects detected:"))
+    #loading specified .rda file
+    message(glue::glue("loading data from {length(filedir)} .rda files:"))
+    # make a list to hold project data
+    proj_list <- NULL
+    for( i in 1:length(filedir)) {
+      message(glue::glue("loading {filedir[i]}/cp_data/{rdafile[i]}"))
+      #open data from .rda file
+      load(glue::glue("{filedir[i]}/cp_data/{rdafile[i]}"))
+      #extract names of data objects from .RData file
+      data_names <- grep("model.outputs", ls(), value = TRUE)
+      # dynGet might not be what we want here look for alternatives
+      suppressMessages(raw <- purrr::map(data_names, dynGet) %>% #get vs dynGet
+                         purrr::reduce(suppressMessages(dplyr::full_join)))
+      proj_list[[i]] <- raw
+    }
+    # rbind the list
+    raw <- data.table::rbindlist(proj_list)
+  }
+  if(length(filedir) > 1 &
+     length(rdafile) > 1 &
+     length(filedir) != length(rdafile)) {
+    message(glue::glue("The number of file directories does not match the number of .rda files.\n
+                       Please check that the filedir and rdafile arguments are specified correctly."))
+    return()
+  }
   # find the number of rows cut per model
   n.size.cut <- raw %>%
     dplyr::mutate(small = ifelse(Worm_Length < px_thresh, 1, 0)) %>%
@@ -66,6 +103,7 @@ readXpress <- function(filedir, rdafile, design = FALSE, px_per_um = 3.2937, px_
   if ("po_AreaShape_Area" %in% names(raw)) {
     message("Primary object attributes detected.\nCalculating `wo_po_area_frac`.\n")
     raw_data_read <- raw %>%
+      dplyr::filter(!is.na(Worm_Length)) %>% # filter non-length objects
       dplyr::filter(Worm_Length > px_thresh) %>% # filter objects smaller than threshold
       dplyr::filter(Parent_WormObjects != 0) %>% # Remove objects without a parent object.
       dplyr::mutate(worm_length_um = px_per_um * Worm_Length,
@@ -73,6 +111,7 @@ readXpress <- function(filedir, rdafile, design = FALSE, px_per_um = 3.2937, px_
   } else {
     message("Primary object attributes NOT detected in data.\nConsider running updated version of cellprofiler-nf if desired.\n")
     raw_data_read <- raw %>%
+      dplyr::filter(!is.na(Worm_Length)) %>% # filter non-length objects
       dplyr::filter(Worm_Length > px_thresh) %>% # filter objects smaller than threshold
       dplyr::filter(Parent_WormObjects != 0) %>% # Remove objects without a parent object.
       dplyr::mutate(worm_length_um = px_per_um * Worm_Length)
@@ -86,18 +125,46 @@ readXpress <- function(filedir, rdafile, design = FALSE, px_per_um = 3.2937, px_
     message("DONE")
     return(raw_data)
   } else {
-    #if you are using a design file
     #make a design file list
     design_file_list <- list.files(glue::glue("{filedir}/design"))
-    #join design file to raw_data.
-    message(glue::glue("Joining design file:\n{design_file_list}\n"))
-    design_file <- readr::read_csv(glue::glue("{filedir}/design/{design_file_list[1]}"),
-                                   guess_max = 50000,
-                                   show_col_types = FALSE)
+    #if you are using a single design file
+    if(length(filedir) == 1 & length(rdafile) == 1) {
+      # report which design file is being joined
+      message(glue::glue("Joining design file:\n{filedir}/design/{design_file_list[1]}\n"))
+      design_file <- readr::read_csv(glue::glue("{filedir}/design/{design_file_list[1]}"),
+                                     guess_max = 50000,
+                                     show_col_types = FALSE)
 
-    #join to raw data
-    suppressMessages(raw_data <- dplyr::left_join(raw_data_read, design_file))
-    message("DONE")
-    return(raw_data)
+      #join to raw data
+      suppressMessages(raw_data <- dplyr::left_join(raw_data_read, design_file))
+      message("DONE")
+      return(raw_data)
+    }
+    # if you are processing multiple projects
+    if(length(filedir) > 1 & length(rdafile) > 1) {
+      # check that design files have Metadata Experiment variable in them.
+      design_data_list <- NULL
+      for( i in 1:length(design_file_list)){
+        design_file <- readr::read_csv(glue::glue("{filedir[i]}/design/{design_file_list[i]}"),
+                                       guess_max = 50000,
+                                       show_col_types = FALSE)
+        if("Metadata_Experiment" %in% names(design_file)) {
+          # report which design file is being joined
+          message(glue::glue("joining design file:\n{filedir[i]}/design/{design_file_list[i]}\n"))
+        } else {
+          stop(glue::glue("The following design file is missing a Metadata_Experiment variable.
+                          Please ensure each design file has a Metadata_Experiment variable if multiple projects are being processed.
+                          {filedir[i]}/design/{design_file_list[i]}"))
+        }
+        design_data_list[[i]] <- design_file
+      }
+      # bind the list
+      design_file <- data.table::rbindlist(design_data_list)
+      #join to raw data
+      suppressMessages(raw_data <- dplyr::left_join(raw_data_read, design_file, by = c("Metadata_Experiment", "Metadata_Plate", "Metadata_Well")))
+      message("DONE")
+      return(raw_data)
+    }
   }
 }
+

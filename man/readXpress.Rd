@@ -13,11 +13,13 @@ readXpress(
 )
 }
 \arguments{
-\item{filedir}{The directory with CellProfiler data.
-This directory should have CellProfiler .rda output in a sub-folder named cp_data.}
+\item{filedir}{The project directory or directories with CellProfiler data.
+Provide a full path to the directory or a vector of project directory paths.
+Each directory must have a \code{cellprofiler-nf} output .rda file in a sub-folder named \code{cp_data}.}
 
-\item{rdafile}{The file name of a particular .rda file
-to load from the cp_data sub-folder.}
+\item{rdafile}{The specific .rda file name in the \code{cp_data} directory to read.
+If multiple project directories are supplied to \code{filedir},
+then include the .rda files for each project in the same order of the directories given in \code{filedir}.}
 
 \item{design}{Logical parameter, if TRUE then a design file
 will be joined to data.
@@ -36,7 +38,8 @@ Please adjust if necessary.}
 \value{
 A single data frame that contains
 all CellProfiler model outputs as well as experimental treatments
-if a design file is used. Several messages are also output to describe how objects have been filtered.
+if a design file is used. If multiple project directories and .rda files are supplied,
+they will be joined together. Several messages are also output to describe how objects have been filtered.
 }
 \description{
 This is the primary function for reading CellProfiler data

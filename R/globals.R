@@ -1,5 +1,5 @@
 ## quiet concerns about no visiable binding
-utils::globalVariables(c("Worm_Length", "Metadata_Plate", "Metadata_Well",
+utils::globalVariables(c("Worm_Length", "Metadata_Experiment", "Metadata_Plate", "Metadata_Well",
                          "Parent_WormObjects", "num_worms", "model_select",
                          "model", "worm_count", "AreaShape_Center_X", "AreaShape_Center_Y",
                          "remove_outliers", "worm_length_um", "well_outlier_flag",

@@ -111,13 +111,13 @@ modelSelection <- function(df) {
   message("\nSelecting best model for each Parent_WormObject.")
   #join combination file with raw data
   suppressMessages(model_selected_df <- df %>%
-    dplyr::group_by(Metadata_Plate, Metadata_Well, Parent_WormObjects, model) %>%
+    dplyr::group_by(Metadata_Experiment, Metadata_Plate, Metadata_Well, Parent_WormObjects, model) %>%
     dplyr::mutate(num_worms = dplyr::n()) %>%
     dplyr::ungroup() %>%
-    dplyr::group_by(Metadata_Plate, Metadata_Well, Parent_WormObjects) %>%
+    dplyr::group_by(Metadata_Experiment, Metadata_Plate, Metadata_Well, Parent_WormObjects) %>%
     dplyr::distinct(model, .keep_all = T) %>%
     dplyr::ungroup() %>%
-    dplyr::select(Metadata_Plate, Metadata_Well,
+    dplyr::select(Metadata_Experiment, Metadata_Plate, Metadata_Well,
                   Parent_WormObjects, model, num_worms) %>%
     tidyr::spread(model, num_worms) %>%
     dplyr::mutate_at(dplyr::vars(tidyselect::one_of(model_names)),
