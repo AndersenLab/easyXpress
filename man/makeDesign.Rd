@@ -5,23 +5,27 @@
 \title{makeDesign}
 \usage{
 makeDesign(
+  proj,
   n.plate,
   n.row = 8,
   n.col = 12,
-  assay.name = NULL,
   assay.type = NULL,
   food = NULL,
   od = NULL
 )
 }
 \arguments{
-\item{n.plate}{The number of plates in the experiment}
+\item{proj}{The name of the project this design file will be used for. Remember that the project name always
+follows the 8-digit date in project directories. For example, the project directory \code{20200130_toxin01A}
+has a project name of \code{"toxin01A"}. The project name will be used to join the design file to the
+\code{cellprofiler-nf} output data by the \code{Metadata_Experiment} variable, so it is critical that they
+match exactly.}
+
+\item{n.plate}{The number of plates in the experiment.}
 
 \item{n.row}{The number of rows in the plates. Default is 8 for a 96-well plate.}
 
 \item{n.col}{The number of columns in the plates. Default is 12 for a 96-well plate.}
-
-\item{assay.name}{OPTIONAL: The name of the assay. This should follow standard cellprofiler-nf assay naming conventions.}
 
 \item{assay.type}{OPTIONAL: The type of assay run. For example, "48h".}
 
@@ -40,18 +44,18 @@ This function will aid in making a design file for an imaging experiment (design
 \details{
 The variables output are as follows:\tabular{lc}{
    Variables \tab Class \cr
-   assay_name \tab chr \cr
-   assay_type \tab chr \cr
+   Metadata_Experiment \tab chr \cr
    Metadata_Plate \tab chr \cr
    Metadata_Well \tab chr \cr
-   plate \tab dbl \cr
-   row \tab chr \cr
-   col \tab chr \cr
    strain \tab chr \cr
    drug \tab chr \cr
    concentration_um \tab dbl \cr
    bleach \tab int \cr
    diluent \tab chr \cr
+   assay_type \tab chr \cr
+   plate \tab dbl \cr
+   row \tab chr \cr
+   col \tab chr \cr
    food \tab chr \cr
    od \tab int \cr
    well_censor \tab chr \cr

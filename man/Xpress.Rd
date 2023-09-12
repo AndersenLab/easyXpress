@@ -17,11 +17,13 @@ Xpress(
 )
 }
 \arguments{
-\item{filedir}{The directory with CellProfiler data.
-This directory should have CellProfiler .rda output in a sub-folder named cp_data.}
+\item{filedir}{The project directory or directories with CellProfiler data.
+Provide a full path to the directory or a vector of project directory paths.
+Each directory must have a \code{cellprofiler-nf} output .rda file in a sub-folder named \code{cp_data}.}
 
-\item{rdafile}{The file name of a particular .rda file
-to load from the cp_data sub-folder.}
+\item{rdafile}{The specific .rda file name in the \code{cp_data} directory to read.
+If multiple project directories are supplied to \code{filedir},
+then include the .rda files for each project in the same order of the directories given in \code{filedir}.}
 
 \item{...}{specify variable used to summarize data. Variable names can be listed in succession.}
 
