@@ -4,8 +4,8 @@
 #' to each primary object in a raw_data object output
 #' by the readXpress function.
 #'
-#' @param df A single dataframe containing worm object measurements
-#' from each CellProfiler model used in an asssay. A model variable is required.
+#' @param df A single data frame containing worm object measurements
+#' from each CellProfiler model used in an assay. A model variable is required.
 #' @return A single data frame named model_selected that contains
 #' the best CellProfiler model for detecting worm objects within
 #' each primary object detected by CellProfiler.

@@ -7,8 +7,8 @@
 modelSelection(df)
 }
 \arguments{
-\item{df}{A single dataframe containing worm object measurements
-from each CellProfiler model used in an asssay. A model variable is required.}
+\item{df}{A single data frame containing worm object measurements
+from each CellProfiler model used in an assay. A model variable is required.}
 }
 \value{
 A single data frame named model_selected that contains

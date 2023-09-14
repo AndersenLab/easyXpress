@@ -9,7 +9,13 @@ utils::globalVariables(c("Worm_Length", "Metadata_Experiment", "Metadata_Plate",
                          "well_edge_flag_radius", "assay_name", "assay_type", "plate", "bleach",
                          "diluent", "well_censor", "well_censor_reason", "notes", "str_subset",
                          "name", "dir_path", "small", "total_rows", "filtered", "no.parent",
-                         "AreaShape_Area", "po_AreaShape_Area"))
+                         "AreaShape_Area", "po_AreaShape_Area", "non-worm", "worm", "classifier_ObjectFlag",
+                         "cluster_flag",
+                         "objectFlag_n",
+                         "group_n",
+                         "objectFlag_group_perc",
+                         "grand_n",
+                         "outlier_ObjectFlag"))
 
 ## quiets concerns of R CMD check re: the .'s that appear in pipelines
 if(getRversion() >= "2.15.1")  {utils::globalVariables(c("."))}
