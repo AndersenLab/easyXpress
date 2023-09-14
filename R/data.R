@@ -1,3 +1,16 @@
+#' The standard gradient boosted classifier for AndersenLab 2X images
+#'
+#' This stochastic gradient boosted classifier was trained with 1,089 worm objects selected from a broad range of experimental conditions
+#' using the caret R package (v6.0-92) (Kuhn 2008). The classifier accuracy was 89.6%, which was estimated by resampling the training data
+#' with 10-fold cross-validation.
+#'
+#' @format ## `gbm2x`
+#' A Large train object with 24 elements.
+#' @source <https://github.com/AndersenLab/2021_GWA_data_cleaning>
+#'
+"gbm2x"
+
+
 #' Generalized model for one worm object
 #'
 #' This data frame contains the generalized model selection dataframe

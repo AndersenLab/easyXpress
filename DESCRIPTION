@@ -25,35 +25,35 @@ Description: A workflow for the reading, processing, and visualization
 Depends:
     R (>= 3.5.0)
 Imports:
-    tidyselect,
     data.table,
     rprojroot,
-    glue,
-    tidyr,
-    dplyr,
-    purrr,
-    readr,
-    stringr,
     rebus,
     png,
     cowplot,
     grid,
     stats,
     rlang,
-    ggplot2,
     viridis,
     plotly,
-    tibble,
     tidyverse,
     imager,
     fs,
-    gridExtra
+    gridExtra,
+    dplyr,
+    ggplot2
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Suggests:
     devtools,
     knitr,
-    rmarkdown
+    rmarkdown,
+    glue,
+    purrr,
+    readr,
+    stringr,
+    tibble,
+    tidyr,
+    tidyselect
 RoxygenNote: 7.1.2
 VignetteBuilder: knitr
