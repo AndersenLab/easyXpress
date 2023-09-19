@@ -13,6 +13,12 @@
 #' @export
 
 modelSelection <- function(df) {
+  if(stringr::str_detect(pattern = ".model.outputs", paste(unique(df$model), collapse = "_"))){
+    message("Removing unnecessary '.model.outputs' suffix from model names")
+    df <- df %>%
+      dplyr::mutate(model = sub(model, pattern = '.model.outputs', replacement = ''))
+  }
+
   # identify number of worm models used
   model_num <- length(unique(df$model))
 
@@ -107,8 +113,6 @@ modelSelection <- function(df) {
       message(glue::glue("\n{model_names[i]}"))
     }
   }
-  # give a message
-  message("\nSelecting best model for each Parent_WormObject.")
   #join combination file with raw data
   suppressMessages(model_selected_df <- df %>%
     dplyr::group_by(Metadata_Experiment, Metadata_Plate, Metadata_Well, Parent_WormObjects, model) %>%
@@ -129,7 +133,6 @@ modelSelection <- function(df) {
     dplyr::filter(model == model_select) %>%
     dplyr::mutate(model = factor(model, levels = model_names)))
 
-  # finsih it
-  message("\nDONE")
+  # finish it
   return(model_selected_df)
 }

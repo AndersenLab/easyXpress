@@ -9,7 +9,7 @@ readXpress(
   rdafile,
   design = FALSE,
   px_per_um = 3.2937,
-  px_thresh = 30
+  length_thresh = 98.811
 )
 }
 \arguments{
@@ -31,9 +31,8 @@ If FALSE no design file will be joined.}
 This conversion factor will vary for different objectives or microscopes. The default is set for the AndersenLab
 imageXpress nano 2X objective at \code{3.2937} pixels per micron (um). Please enter another conversion factor if necessary.}
 
-\item{px_thresh}{A pixel threshold used to filter small objects from the data. The default setting is \code{30} pixels.
-This is the standard threshold used for the AndersenLab images taken with the imageXpress nano using the 2X objective.
-Please adjust if necessary.}
+\item{length_thresh}{An object length threshold in um used to filter objects from the data. The default setting is \code{98.811} um.
+This is the standard threshold used for the AndersenLab images taken with the imageXpress nano. Please adjust only if necessary.}
 }
 \value{
 A single data frame that contains
@@ -42,7 +41,5 @@ if a design file is used. If multiple project directories and .rda files are sup
 they will be joined together. Several messages are also output to describe how objects have been filtered.
 }
 \description{
-This is the primary function for reading CellProfiler data
-into R with this package.
-It is built exclusively for use with worm image data saved as a .rda file.
+This function reads CellProfiler data into R. It is built exclusively for use with worm image data saved as a .rda file.
 }

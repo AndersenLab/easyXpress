@@ -40,7 +40,8 @@ Imports:
     fs,
     gridExtra,
     dplyr,
-    ggplot2
+    ggplot2,
+    pals
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
@@ -54,6 +55,7 @@ Suggests:
     stringr,
     tibble,
     tidyr,
-    tidyselect
+    tidyselect,
+    progress
 RoxygenNote: 7.1.2
 VignetteBuilder: knitr
