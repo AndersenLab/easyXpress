@@ -37,7 +37,6 @@ checkOF <- function(data, plot, ...){
   model_names <- levels(data$model)
 
   # summarized by
-  group_vars <- names(data %>% dplyr::select(drug, strain))
   sum_by <- paste(names(data %>% dplyr::select(drug, strain)), collapse = ", ")
   message(glue::glue("The data are summarized by: {sum_by}"))
 
@@ -64,7 +63,7 @@ checkOF <- function(data, plot, ...){
     dplyr::mutate(objectFlag_n = dplyr::n()) %>%
     #dplyr::filter(objectFlag != "") %>%
     dplyr::ungroup() %>%
-    dplyr::mutate(objectFlag = ifelse(objectFlag == "", "noFlag", objectFlag),
+    dplyr::mutate(objectFlag = ifelse(objectFlag == "" | is.na(objectFlag), "noFlag", objectFlag),
                   objectFlag_group_perc = objectFlag_n / group_n) %>%
     # set levels from user flag order
     dplyr::mutate(objectFlag = factor(objectFlag, levels = c(uf.short, "noFlag"))) %>%

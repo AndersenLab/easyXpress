@@ -1,8 +1,6 @@
 #' readXpress
 #'
-#' This is the primary function for reading CellProfiler data
-#' into R with this package.
-#' It is built exclusively for use with worm image data saved as a .rda file.
+#' This function reads CellProfiler data into R. It is built exclusively for use with worm image data saved as a .rda file.
 #'
 #' @param filedir The project directory or directories with CellProfiler data.
 #' Provide a full path to the directory or a vector of project directory paths.
@@ -18,9 +16,8 @@
 #' @param px_per_um The number of pixels per micron (um) for the images.
 #' This conversion factor will vary for different objectives or microscopes. The default is set for the AndersenLab
 #' imageXpress nano 2X objective at \code{3.2937} pixels per micron (um). Please enter another conversion factor if necessary.
-#' @param px_thresh A pixel threshold used to filter small objects from the data. The default setting is \code{30} pixels.
-#' This is the standard threshold used for the AndersenLab images taken with the imageXpress nano using the 2X objective.
-#' Please adjust if necessary.
+#' @param length_thresh An object length threshold in um used to filter objects from the data. The default setting is \code{98.811} um.
+#' This is the standard threshold used for the AndersenLab images taken with the imageXpress nano. Please adjust only if necessary.
 #' @return A single data frame that contains
 #' all CellProfiler model outputs as well as experimental treatments
 #' if a design file is used. If multiple project directories and .rda files are supplied,
@@ -29,7 +26,7 @@
 #' @importFrom utils capture.output
 #' @export
 
-readXpress <- function(filedir, rdafile, design = FALSE, px_per_um = 3.2937, px_thresh = 30) {
+readXpress <- function(filedir, rdafile, design = FALSE, px_per_um = 3.2937, length_thresh = 98.811) {
   #check for one project directory
   if(length(filedir) == 1 & length(rdafile) == 1) {
     # tell use about it
@@ -42,7 +39,8 @@ readXpress <- function(filedir, rdafile, design = FALSE, px_per_um = 3.2937, px_
     data_names <- grep("model.outputs", ls(), value = TRUE)
     # dynGet might not be what we want here look for alternatives
     suppressMessages(raw <- purrr::map(data_names, dynGet) %>%
-                       purrr::reduce(suppressMessages(dplyr::full_join)))
+                       purrr::reduce(suppressMessages(dplyr::full_join)) %>%
+                       dplyr::mutate(worm_length_um = Worm_Length * px_per_um))
   }
   # check on multiple project directories
   if(length(filedir) > 1 &
@@ -66,7 +64,9 @@ readXpress <- function(filedir, rdafile, design = FALSE, px_per_um = 3.2937, px_
       proj_list[[i]] <- raw
     }
     # rbind the list
-    raw <- data.table::rbindlist(proj_list)
+    raw <- data.table::rbindlist(proj_list) %>%
+      dplyr::mutate(worm_length_um = Worm_Length * px_per_um)
+
   }
   if(length(filedir) > 1 &
      length(rdafile) > 1 &
@@ -77,14 +77,14 @@ readXpress <- function(filedir, rdafile, design = FALSE, px_per_um = 3.2937, px_
   }
   # find the number of rows cut per model
   n.size.cut <- raw %>%
-    dplyr::mutate(small = ifelse(Worm_Length < px_thresh, 1, 0)) %>%
+    dplyr::mutate(small = ifelse(worm_length_um < length_thresh, 1, 0)) %>%
     dplyr::group_by(model) %>%
     dplyr::mutate(filtered = sum(small, na.rm = T),
                   total_rows = dplyr::n()) %>%
     dplyr::distinct(model, total_rows, filtered) %>%
     dplyr::ungroup() %>%
     dplyr::mutate(model = sub(model, pattern = ".model.outputs", replacement = ""))
-  message(glue::glue("\nApplying pixel threshold of {px_thresh}px.\nThe number of filtered rows for each model are displayed below."))
+  message(glue::glue("\nApplying length threshold of {length_thresh} um.\nThe number of filtered rows for each model are displayed below."))
   message(message(paste0(capture.output(knitr::kable(n.size.cut)), collapse = "\n")))
 
   # find the number of rows without parent objects
@@ -104,17 +104,15 @@ readXpress <- function(filedir, rdafile, design = FALSE, px_per_um = 3.2937, px_
     message("Primary object attributes detected.\nCalculating `wo_po_area_frac`.\n")
     raw_data_read <- raw %>%
       dplyr::filter(!is.na(Worm_Length)) %>% # filter non-length objects
-      dplyr::filter(Worm_Length > px_thresh) %>% # filter objects smaller than threshold
+      dplyr::filter(worm_length_um > length_thresh) %>% # filter objects smaller than threshold
       dplyr::filter(Parent_WormObjects != 0) %>% # Remove objects without a parent object.
-      dplyr::mutate(worm_length_um = px_per_um * Worm_Length,
-                    wo_po_area_frac = AreaShape_Area / po_AreaShape_Area)
+      dplyr::mutate(wo_po_area_frac = AreaShape_Area / po_AreaShape_Area)
   } else {
     message("Primary object attributes NOT detected in data.\nConsider running updated version of cellprofiler-nf if desired.\n")
     raw_data_read <- raw %>%
       dplyr::filter(!is.na(Worm_Length)) %>% # filter non-length objects
-      dplyr::filter(Worm_Length > px_thresh) %>% # filter objects smaller than threshold
-      dplyr::filter(Parent_WormObjects != 0) %>% # Remove objects without a parent object.
-      dplyr::mutate(worm_length_um = px_per_um * Worm_Length)
+      dplyr::filter(worm_length_um > length_thresh) %>% # filter objects smaller than threshold
+      dplyr::filter(Parent_WormObjects != 0) # Remove objects without a parent object.
   }
 
   # Check if you are not using a design file

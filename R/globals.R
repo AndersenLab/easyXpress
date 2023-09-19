@@ -15,7 +15,26 @@ utils::globalVariables(c("Worm_Length", "Metadata_Experiment", "Metadata_Plate",
                          "group_n",
                          "objectFlag_group_perc",
                          "grand_n",
-                         "outlier_ObjectFlag"))
+                         "outlier_ObjectFlag",
+                         "group",
+                         "mean_strain_length",
+                         "slice_index",
+                         "well_id",
+                         "checkMV_well_id",
+                         "arg",
+                         "Image_FileName_RawBF",
+                         "file_path",
+                         "array_x_pos",
+                         "array_y_pos",
+                         "obj_center_x",
+                         "obj_center_y",
+                         "obj_class",
+                         "obj_color",
+                         "obj_shape",
+                         "well_label",
+                         "text_anno",
+                         "animal_length_um",
+                         "obj"))
 
 ## quiets concerns of R CMD check re: the .'s that appear in pipelines
 if(getRversion() >= "2.15.1")  {utils::globalVariables(c("."))}

@@ -4,7 +4,7 @@
 \alias{outlierOF}
 \title{outlierOF}
 \usage{
-outlierOF(data, iqr = TRUE, thresh = NULL)
+outlierOF(data, iqr = TRUE, thresh = NULL, filterOF = TRUE)
 }
 \arguments{
 \item{data}{A data frame output from the \code{modelSelection} function.}
@@ -17,6 +17,8 @@ be applied to normal distributions.}
 \item{thresh}{OPTIONAL: A numeric value used to calculate outliers. By default this parameter is set to \code{NULL}.
 If \code{thresh = NULL} then it is set to the recommended values within the function:
 (\code{1.5} if \code{iqr = TRUE}) and (\code{3} if \code{iqr = FALSE}).}
+
+\item{filterOF}{Logical, if \code{TRUE} any flagged objects detected in data are not considered for the calculation of outliers.}
 }
 \value{
 A single data frame identical to the input data with the \code{outlier_ObjectFlag} variable added.
