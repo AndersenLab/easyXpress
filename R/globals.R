@@ -34,7 +34,10 @@ utils::globalVariables(c("Worm_Length", "Metadata_Experiment", "Metadata_Plate",
                          "well_label",
                          "text_anno",
                          "animal_length_um",
-                         "obj"))
+                         "obj",
+                         "well.id",
+                         "cv.n",
+                         "titer_WellFlag"))
 
 ## quiets concerns of R CMD check re: the .'s that appear in pipelines
 if(getRversion() >= "2.15.1")  {utils::globalVariables(c("."))}

@@ -9,12 +9,12 @@ outlierOF(data, iqr = TRUE, thresh = NULL, filterOF = TRUE)
 \arguments{
 \item{data}{A data frame output from the \code{modelSelection} function.}
 
-\item{iqr}{Logical, if \code{TRUE}, objects in a well are called outliers if their Worm_Length is outside the range \code{median(Worm_Length) +/- (thresh * IQR)}.
-If \code{FALSE}, objects in a well are called outliers if their Worm_Length is outside the range \code{mean(Worm_Length) +/- (thresh * SD)}.
+\item{iqr}{Logical, if \code{TRUE}, objects in a well are called outliers if their worm_length_um is outside the range \code{median(worm_length_um) +/- (thresh * IQR)}.
+If \code{FALSE}, objects in a well are called outliers if their worm_length_um is outside the range \code{mean(worm_length_um) +/- (thresh * SD)}.
 The default is \code{TRUE}. NOTE: The Interquartile Range (IQR) method is useful for most distributions. The Standard Deviation (SD) method should only
 be applied to normal distributions.}
 
-\item{thresh}{OPTIONAL: A numeric value used to calculate outliers. By default this parameter is set to \code{NULL}.
+\item{thresh}{A numeric value used to calculate outliers. By default this parameter is set to \code{NULL}.
 If \code{thresh = NULL} then it is set to the recommended values within the function:
 (\code{1.5} if \code{iqr = TRUE}) and (\code{3} if \code{iqr = FALSE}).}
 

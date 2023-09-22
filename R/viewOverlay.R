@@ -33,6 +33,11 @@ viewOverlay <- function(data, proc.img.dir, well.label, obj.label,
 
   # set all names so they match exactly! ugh - this feels dirty. Should update to use tunneling.
   # https://www.tidyverse.org/blog/2020/02/glue-strings-and-tidy-eval/
+  ########################
+  # vars <- c("ASS", "BARf")
+  # d2 <- data %>%
+  #   dplyr::mutate_at(dplyr::vars(!!!vars), function(x) as.character(x)) %>%
+  #   dplyr::rename_at(dplyr::vars(!!!vars), function(x) paste0(x,"_ObjectFlag"))
   args.l <- as.list(match.call(expand.dots=FALSE))
   arg.df <- tibble::tibble(arg = names(unlist(args.l)), value = as.character(unname(unlist(args.l)))) %>%
     dplyr::filter(arg %in% c("well.label", "obj.label", "obj.color", "obj.shape", "text.anno")) %>%
