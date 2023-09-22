@@ -2,7 +2,8 @@
 #'
 #' @param data A data frame output from any ObjectFlag (OF) function from easyXpress.
 #' @param plot Logical, if \code{TRUE} a ggplot2 object will be returned in a list.
-#' @param ... OPTIONAL: Variable(s) used to summarize data. Variable names can be listed in succession.
+#' @param ... <[`dynamic-dots`][rlang::dyn-dots]> Variable(s) used to group data. Variable names in data are supplied separated by commas and without quotes.
+#' For example, \code{drug, strain}.
 #' @return If \code{plot = TRUE} a list with two elements is returned. The first element (df.checkOF) is a data frame summarized by ...,
 #' with the numbers of objects flagged and retained by each OF applied to the data. The second element (p.checkOF)
 #' is a ggplot2 object showing the objects retained after all filtering and faceted by ...
@@ -13,7 +14,9 @@
 checkOF <- function(data, plot, ...){
   # Find the ObjectFlags in data in the order they appear
   uf <- names(data %>% dplyr::select(contains("_ObjectFlag")))
-  uf.short <- sub(uf, pattern = "_ObjectFlag", replacement = "")
+  #uf.short <- sub(uf, pattern = "_ObjectFlag", replacement = "")
+  uf.short <- unlist(lapply(data[uf], function(x) unique(na.omit(x))))
+  names(uf.short) <- NULL
 
   # send an error if needed
   if(length(uf) == 0 ) {
@@ -66,7 +69,7 @@ checkOF <- function(data, plot, ...){
     dplyr::mutate(objectFlag = ifelse(objectFlag == "" | is.na(objectFlag), "noFlag", objectFlag),
                   objectFlag_group_perc = objectFlag_n / group_n) %>%
     # set levels from user flag order
-    dplyr::mutate(objectFlag = factor(objectFlag, levels = c(uf.short, "noFlag"))) %>%
+    dplyr::mutate(objectFlag = factor(objectFlag, levels = c(uf.short, "noFlag"))) %>% #NEED TO SET LEVELS FOR userOF!!!
     dplyr::arrange(..., objectFlag) %>% # drug, strain # ...
     dplyr::distinct(..., grouping, objectFlag, objectFlag_group_perc, grand_n, group_n, objectFlag_n) %>% # drug, strain # ...
     dplyr::select(..., grouping, objectFlag, objectFlag_group_perc, grand_n, group_n, objectFlag_n) # drug, strain # ...

@@ -1,21 +1,22 @@
-#' checkModelsView
+#' checkModels
 #'
 #' This function will create an one or more arrays of image overlays to help users evaluate cellprofiler model performance and object length thresholds.
 #'
 #' @param data A data frame output from the \code{modelSelection} function or any \code{OF} function from easyXpress.
-#' @param ... Variable(s) used to group data. Variable names in data are supplied separated by commas and without quotes. For example \code{drug, concentration_um}.
+#' @param ... <[`dynamic-dots`][rlang::dyn-dots]> Variable(s) used to group data. Variable names in data are supplied separated by commas and without quotes. For example \code{drug, concentration_um}.
 #' @param modelName The name of the cellprofiler model to check in the diagnostic plots. Typically this is the smallest model in the dataset.
 #' The default is set to \code{"MDHD"}.
 #' @param OF Select one of \code{"filter", "ignore"}. The default is \code{"filter"}, which will filter out all objects flagged by OFs.
 #' \code{"ignore"} will include all objects in the diagnostic plots.
 #' @param length_thresh An object length threshold in um used to label objects from the data. The default setting is \code{164.685} um.
 #' This is the standard threshold used for the AndersenLab 2X objective images. Please adjust if necessary.
-#' @param strainN The maximum number of strains to include in a overlay. This function will return at maximum \code{strainN} strains per overlay.
-#' These are strains are choosen because they have the lowest average object length in the group.
-#' @param wellN The maximum number of wells to include in a overlay. This function will return at maximum \code{wellN} wells per strain within an overlay.
-#' These wells are choosen because they have the lowest average object length within the strain.
-#' @param proc.img.dir Supply one of two options. 1 - The full path to a directory holding all processed images. For example, "~/proc_images/".
-#' 2 - A variable name in \code{data} that holds the full path to the directory holding processed images matching the data.
+#' @param strainN The maximum number of strains to include in a overlay. This function will return at maximum \code{strainN} strains per overlay array.
+#' These strains are chosen because they have the lowest average object length in the group.
+#' @param wellN The maximum number of wells to include in a overlay. This function will return at maximum \code{wellN} wells per strain within an overlay array.
+#' These wells are chosen because they have the lowest average object length within the strains included in the overlay array.
+#' @param proc.img.dir Supply one of two options. 1: The full path to a directory holding all processed images. For example, "~/proc_images/".
+#' 2: A variable name in \code{data} that holds the full path to the directory holding processed images matching the data.
+#' This option is helpful if the processed images are not kept in the same directory.
 #' Users will need to add this variable to the data frame themselves. For example, "image_path".
 #' For either option to work the processed images must have the standard \code{_overlay.png} suffix and file name output from CellProfiler.
 #' @param well.label A variable name in \code{data} to display as a well label. For example, "Metadata_Well".
@@ -24,7 +25,7 @@
 #' @importFrom dplyr contains
 #' @export
 
-checkModelsView <- function(data, ..., modelName = "MDHD", OF = "filter", length_thresh = 164.685, strainN = 4,
+checkModels <- function(data, ..., modelName = "MDHD", OF = "filter", length_thresh = 164.685, strainN = 4,
                             wellN = 4, proc.img.dir, well.label, out.dir) {
   # check OF argument and stop if invalid
   if(OF %in% c("filter", "ignore") == F) {

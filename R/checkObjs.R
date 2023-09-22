@@ -1,19 +1,20 @@
-#' checkModelsPlot
+#' checkObjs
 #'
 #' A function to help detect potential issues in the data by visualizing the size and type of objects across grouping variables.
 #'
 #' @param data A data frame output from the \code{modelSelection} function or any \code{OF} function from easyXpress.
 #' @param OF Select one of \code{"filter", "label", "ignore"}. The default is \code{"filter"}, which will filter out all objects flagged by OFs.
 #' \code{"label"} will fill flagged objects by OFs and fill objects not flagged with model names. \code{"ignore"} will fill all objects by model names.
-#' @param ... Variable(s) used to summarize data. Variable names can be listed in succession.
+#' @param ... <[`dynamic-dots`][rlang::dyn-dots]> Variable(s) used to summarize data. Variable names can be listed in succession.
 #' @return A plot faceted by the grouping variables ..., with objects labelled by the CellProfiler worm model and OFs if specified.
 #' @importFrom dplyr contains
 #' @export
 
-checkModelsPlot <- function(data, OF, ...) {
+checkObjs <- function(data, OF, ...) {
   # Find the ObjectFlags in data in the order they appear
   uf <- names(data %>% dplyr::select(contains("_ObjectFlag")))
-  uf.short <- sub(uf, pattern = "_ObjectFlag", replacement = "")
+  uf.short <- unlist(lapply(data[uf], function(x) unique(na.omit(x))))
+  names(uf.short) <- NULL
 
   # Get a single ObjectFlag vector based on the order in which the flags were run
   objectFlag <- data %>%

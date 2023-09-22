@@ -11,7 +11,8 @@ checkOF(data, plot, ...)
 
 \item{plot}{Logical, if \code{TRUE} a ggplot2 object will be returned in a list.}
 
-\item{...}{OPTIONAL: Variable(s) used to summarize data. Variable names can be listed in succession.}
+\item{...}{<[`dynamic-dots`][rlang::dyn-dots]> Variable(s) used to group data. Variable names in data are supplied separated by commas and without quotes.
+For example, \code{drug, strain}.}
 }
 \value{
 If \code{plot = TRUE} a list with two elements is returned. The first element (df.checkOF) is a data frame summarized by ...,

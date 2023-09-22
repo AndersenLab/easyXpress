@@ -133,6 +133,18 @@ readXpress <- function(filedir, rdafile, design = FALSE, px_per_um = 3.2937, len
                                      guess_max = 50000,
                                      show_col_types = FALSE)
 
+      # check on control coding
+      controls <- unique(design_file$diluent)
+      drugs <- unique(design_file$drug)
+      if(F %in% (controls %in% drugs)) {
+        # send a warning.
+        message(glue::glue("WARNING: the controls are not configured as expected in the design file. Control conditions should have the same value for drug and diluent and a 0 for concentration_um. Please correct the control condition coding before using easyXpress well flag (WF) functions.
+                           For example:"))
+        example <- tibble::tibble(drug = c("DMSO", "Water", "death juice", "seizure sauce"),
+                                  concentration_um = c(0, 0, 10, 100),
+                                  diluent = c("DMSO", "Water", "DMSO", "Water"))
+        message(message(paste0(capture.output(knitr::kable(example)), collapse = "\n")))
+      }
       #join to raw data
       suppressMessages(raw_data <- dplyr::left_join(raw_data_read, design_file))
       message("DONE")
@@ -158,6 +170,20 @@ readXpress <- function(filedir, rdafile, design = FALSE, px_per_um = 3.2937, len
       }
       # bind the list
       design_file <- data.table::rbindlist(design_data_list)
+
+      # check on control coding
+      controls <- unique(design_file$diluent)
+      drugs <- unique(design_file$drug)
+      if(F %in% (controls %in% drugs)) {
+        # send a warning.
+        message(glue::glue("WARNING: the controls are not configured as expected in the design file. Control conditions should have the same value for drug and diluent and a 0 for concentration_um. Please correct the control condition coding before using easyXpress well flag (WF) functions.
+                           For example:"))
+        example <- tibble::tibble(drug = c("DMSO", "Water", "death juice", "seizure sauce"),
+                                  concentration_um = c(0, 0, 10, 100),
+                                  diluent = c("DMSO", "Water", "DMSO", "Water"))
+        message(message(paste0(capture.output(knitr::kable(example)), collapse = "\n")))
+      }
+
       #join to raw data
       suppressMessages(raw_data <- dplyr::left_join(raw_data_read, design_file, by = c("Metadata_Experiment", "Metadata_Plate", "Metadata_Well")))
       message("DONE")

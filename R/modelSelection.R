@@ -18,7 +18,11 @@ modelSelection <- function(df) {
     df <- df %>%
       dplyr::mutate(model = sub(model, pattern = '.model.outputs', replacement = ''))
   }
-
+  if(stringr::str_detect(pattern = "_NonOverlappingWorms", paste(unique(df$model), collapse = "_"))){
+    message("Removing unnecessary '_NonOverlappingWorms' suffix from model names")
+    df <- df %>%
+      dplyr::mutate(model = sub(model, pattern = '_NonOverlappingWorms', replacement = ''))
+  }
   # identify number of worm models used
   model_num <- length(unique(df$model))
 
