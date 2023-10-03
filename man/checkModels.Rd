@@ -20,7 +20,8 @@ checkModels(
 \arguments{
 \item{data}{A data frame output from the \code{modelSelection} function or any \code{OF} function from easyXpress.}
 
-\item{...}{<[`dynamic-dots`][rlang::dyn-dots]> Variable(s) used to group data. Variable names in data are supplied separated by commas and without quotes. For example \code{drug, concentration_um}.}
+\item{...}{<[`dynamic-dots`][rlang::dyn-dots]> Variable(s) used to group data. Variable names in data are supplied separated by commas and without quotes.
+For example \code{drug, concentration_um}.}
 
 \item{modelName}{The name of the cellprofiler model to check in the diagnostic plots. Typically this is the smallest model in the dataset.
 The default is set to \code{"MDHD"}.}

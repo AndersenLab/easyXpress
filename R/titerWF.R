@@ -33,7 +33,7 @@ titerWF <- function(data, ..., thresh = 0.68, plot = T) {
     dplyr::select(well.id, ..., n, drug, concentration_um, diluent) %>% # Metadata_Experiment, strain, bleach # ...
     dplyr::filter(drug == diluent & concentration_um == 0) %>%
     dplyr::group_by(...) %>% # ...
-    dplyr::mutate(num.wells = n(),
+    dplyr::mutate(num.wells = dplyr::n(),
                   cv.n = sd(n)/mean(n)) %>%
     dplyr::ungroup() %>%
     dplyr::mutate(quant.95.cv.n = quantile(cv.n, .95, na.rm = T),
@@ -41,13 +41,16 @@ titerWF <- function(data, ..., thresh = 0.68, plot = T) {
                   titer_WellFlag = ifelse(cv.n > thresh, "titer", NA_character_))
 
   # get the wells to flag with titer
-  t.wells <- d %>%
+  flags <- d %>%
     dplyr::filter(titer_WellFlag == "titer") %>%
-    dplyr::pull(well.id)
+    tidyr::unite(flag_id, ..., sep = "_", remove = F, na.rm = T) %>%
+    dplyr::distinct(flag_id) %>%
+    dplyr::pull(flag_id)
 
-  # set the flag by well.id
+  # set the flag by flag.id
   t.d <- data %>%
-    dplyr::mutate(titer_WellFlag = dplyr::case_when(well.id %in% t.wells ~ "titer",
+    tidyr::unite(flag_id, ..., sep = "_", remove = F, na.rm = T) %>%
+    dplyr::mutate(titer_WellFlag = dplyr::case_when(flag_id %in% flags ~ "titer",
                                              TRUE ~ NA_character_))
 
   # get distinct bleaches for ploting and reporting
@@ -55,7 +58,7 @@ titerWF <- function(data, ..., thresh = 0.68, plot = T) {
     dplyr::distinct(..., .keep_all = T)
 
   # message
-  message(glue::glue("{length(d.p)} independent bleaches detected. The titer_WellFlag is set in the output data."))
+  message(glue::glue("{nrow(d.p)} independent bleaches detected. The titer_WellFlag is set in the output data."))
 
   if(plot == T) {
     # plot it with thresh
@@ -69,7 +72,7 @@ titerWF <- function(data, ..., thresh = 0.68, plot = T) {
 
     # return
     message(glue::glue("A diagnostic plot for checking cv.n threshold is returned. See ?titerWF() for more details."))
-    out <- list(titerWF.d = t.d, titerWF.p = p)
+    out <- list(d = t.d, p = p)
     return(out)
   } else {
     # return data only

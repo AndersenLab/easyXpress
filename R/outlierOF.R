@@ -1,7 +1,6 @@
 #' outlierOF
 #'
 #' This function will flag outlier objects based the Worm_Legnth variable.
-#'
 #' @param data A data frame output from the \code{modelSelection} function.
 #' @param iqr Logical, if \code{TRUE}, objects in a well are called outliers if their worm_length_um is outside the range \code{median(worm_length_um) +/- (thresh * IQR)}.
 #' If \code{FALSE}, objects in a well are called outliers if their worm_length_um is outside the range \code{mean(worm_length_um) +/- (thresh * SD)}.
@@ -12,7 +11,7 @@
 #' (\code{1.5} if \code{iqr = TRUE}) and (\code{3} if \code{iqr = FALSE}).
 #' @param filterOF Logical, if \code{TRUE} any flagged objects detected in data are not considered for the calculation of outliers.
 #' @return A single data frame identical to the input data with the \code{outlier_ObjectFlag} variable added.
-#' The \code{outlier_ObjectFlag} variable is coded as \code{"outlier"} for objects deemed outliers and \code{NA_character} for non-outliers.
+#' The \code{outlier_ObjectFlag} variable is coded as \code{"outlier"} for objects deemed outliers and \code{NA_character_} for non-outliers.
 #' @export
 
 outlierOF <- function(data, iqr = TRUE, thresh = NULL, filterOF = TRUE) {

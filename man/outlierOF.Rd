@@ -22,7 +22,7 @@ If \code{thresh = NULL} then it is set to the recommended values within the func
 }
 \value{
 A single data frame identical to the input data with the \code{outlier_ObjectFlag} variable added.
-The \code{outlier_ObjectFlag} variable is coded as \code{"outlier"} for objects deemed outliers and \code{NA_character} for non-outliers.
+The \code{outlier_ObjectFlag} variable is coded as \code{"outlier"} for objects deemed outliers and \code{NA_character_} for non-outliers.
 }
 \description{
 This function will flag outlier objects based the Worm_Legnth variable.

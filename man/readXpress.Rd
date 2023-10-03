@@ -35,10 +35,11 @@ imageXpress nano 2X objective at \code{3.2937} pixels per micron (um). Please en
 This is the standard threshold used for the AndersenLab images taken with the imageXpress nano. Please adjust only if necessary.}
 }
 \value{
-A single data frame that contains
-all CellProfiler model outputs as well as experimental treatments
-if a design file is used. If multiple project directories and .rda files are supplied,
-they will be joined together. Several messages are also output to describe how objects have been filtered.
+A list including two elements
+1) A data frame that contains all CellProfiler model outputs as well as experimental treatments
+if a design file is used. If multiple project directories and .rda files are supplied, they will be joined together.
+2) A data frame the contains the complete design file read from the project directory or directories.
+This data frame is useful for checking the completeness of the data after filtering steps are completed.
 }
 \description{
 This function reads CellProfiler data into R. It is built exclusively for use with worm image data saved as a .rda file.

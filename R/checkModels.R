@@ -3,7 +3,8 @@
 #' This function will create an one or more arrays of image overlays to help users evaluate cellprofiler model performance and object length thresholds.
 #'
 #' @param data A data frame output from the \code{modelSelection} function or any \code{OF} function from easyXpress.
-#' @param ... <[`dynamic-dots`][rlang::dyn-dots]> Variable(s) used to group data. Variable names in data are supplied separated by commas and without quotes. For example \code{drug, concentration_um}.
+#' @param ... <[`dynamic-dots`][rlang::dyn-dots]> Variable(s) used to group data. Variable names in data are supplied separated by commas and without quotes.
+#' For example \code{drug, concentration_um}.
 #' @param modelName The name of the cellprofiler model to check in the diagnostic plots. Typically this is the smallest model in the dataset.
 #' The default is set to \code{"MDHD"}.
 #' @param OF Select one of \code{"filter", "ignore"}. The default is \code{"filter"}, which will filter out all objects flagged by OFs.
@@ -66,7 +67,7 @@ checkModels <- function(data, ..., modelName = "MDHD", OF = "filter", length_thr
 
   # nest the data
   nest <- of.data %>%
-    dplyr::group_by(drug, concentration_um) %>% #... drug, concentration_um
+    dplyr::group_by(...) %>%
     tidyr::nest() %>%
     tidyr::unite(col = group, -data)
 

@@ -50,7 +50,7 @@ The variables output are as follows:\tabular{lc}{
    strain \tab chr \cr
    drug \tab chr \cr
    concentration_um \tab dbl \cr
-   bleach \tab int \cr
+   bleach \tab chr \cr
    diluent \tab chr \cr
    assay_type \tab chr \cr
    plate \tab dbl \cr
