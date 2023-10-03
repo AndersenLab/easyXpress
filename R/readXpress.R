@@ -18,10 +18,11 @@
 #' imageXpress nano 2X objective at \code{3.2937} pixels per micron (um). Please enter another conversion factor if necessary.
 #' @param length_thresh An object length threshold in um used to filter objects from the data. The default setting is \code{98.811} um.
 #' This is the standard threshold used for the AndersenLab images taken with the imageXpress nano. Please adjust only if necessary.
-#' @return A single data frame that contains
-#' all CellProfiler model outputs as well as experimental treatments
-#' if a design file is used. If multiple project directories and .rda files are supplied,
-#' they will be joined together. Several messages are also output to describe how objects have been filtered.
+#' @return A list including two elements
+#' 1) A data frame that contains all CellProfiler model outputs as well as experimental treatments
+#' if a design file is used. If multiple project directories and .rda files are supplied, they will be joined together.
+#' 2) A data frame the contains the complete design file read from the project directory or directories.
+#' This data frame is useful for checking the completeness of the data after filtering steps are completed.
 #' @importFrom dplyr %>%
 #' @importFrom utils capture.output
 #' @export
@@ -148,7 +149,7 @@ readXpress <- function(filedir, rdafile, design = FALSE, px_per_um = 3.2937, len
       #join to raw data
       suppressMessages(raw_data <- dplyr::left_join(raw_data_read, design_file))
       message("DONE")
-      return(raw_data)
+      return(list(raw_data = raw_data, design = design_file))
     }
     # if you are processing multiple projects
     if(length(filedir) > 1 & length(rdafile) > 1) {
@@ -184,10 +185,12 @@ readXpress <- function(filedir, rdafile, design = FALSE, px_per_um = 3.2937, len
         message(message(paste0(capture.output(knitr::kable(example)), collapse = "\n")))
       }
 
+      #ADD A CHECK ON VARIABLE CLASS! BLEACH e.g.
+
       #join to raw data
       suppressMessages(raw_data <- dplyr::left_join(raw_data_read, design_file, by = c("Metadata_Experiment", "Metadata_Plate", "Metadata_Well")))
       message("DONE")
-      return(raw_data)
+      return(list(raw_data = raw_data, design = design_file))
     }
   }
 }

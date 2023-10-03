@@ -1,17 +1,17 @@
 #' checkOF
 #'
 #' @param data A data frame output from any ObjectFlag (OF) function from easyXpress.
-#' @param plot Logical, if \code{TRUE} a ggplot2 object will be returned in a list.
 #' @param ... <[`dynamic-dots`][rlang::dyn-dots]> Variable(s) used to group data. Variable names in data are supplied separated by commas and without quotes.
 #' For example, \code{drug, strain}.
-#' @return If \code{plot = TRUE} a list with two elements is returned. The first element (df.checkOF) is a data frame summarized by ...,
-#' with the numbers of objects flagged and retained by each OF applied to the data. The second element (p.checkOF)
+#' @param plot Logical, if \code{TRUE}, the default, a ggplot2 object will be returned in a list.
+#' @return If \code{plot = TRUE} a list with two elements is returned. The first element (d) is a data frame summarized by ...,
+#' with the numbers of objects flagged and retained by each OF applied to the data. The second element (p)
 #' is a ggplot2 object showing the objects retained after all filtering and faceted by ...
 #' If \code{plot = FALSE} only a data frame is returned.
 #' @importFrom dplyr contains
 #' @export
 
-checkOF <- function(data, plot, ...){
+checkOF <- function(data, ..., plot = T){
   # Find the ObjectFlags in data in the order they appear
   uf <- names(data %>% dplyr::select(contains("_ObjectFlag")))
   #uf.short <- sub(uf, pattern = "_ObjectFlag", replacement = "")
@@ -40,7 +40,7 @@ checkOF <- function(data, plot, ...){
   model_names <- levels(data$model)
 
   # summarized by
-  sum_by <- paste(names(data %>% dplyr::select(drug, strain)), collapse = ", ")
+  sum_by <- paste(names(data %>% dplyr::select(...)), collapse = ", ")
   message(glue::glue("The data are summarized by: {sum_by}"))
 
   # Add it to data and summarize by grouping variables if provided.
@@ -60,19 +60,18 @@ checkOF <- function(data, plot, ...){
     dplyr::bind_cols(objectFlag = objectFlag) %>%
     dplyr::mutate(grand_n = dplyr::n(),
                   grouping = sum_by) %>%
-    dplyr::group_by(...) %>% # drug, strain # ...
+    dplyr::group_by(...) %>%
     dplyr::mutate(group_n = dplyr::n()) %>%
-    dplyr::group_by(..., objectFlag) %>% # drug, strain # ...
+    dplyr::group_by(..., objectFlag) %>%
     dplyr::mutate(objectFlag_n = dplyr::n()) %>%
-    #dplyr::filter(objectFlag != "") %>%
     dplyr::ungroup() %>%
     dplyr::mutate(objectFlag = ifelse(objectFlag == "" | is.na(objectFlag), "noFlag", objectFlag),
                   objectFlag_group_perc = objectFlag_n / group_n) %>%
     # set levels from user flag order
-    dplyr::mutate(objectFlag = factor(objectFlag, levels = c(uf.short, "noFlag"))) %>% #NEED TO SET LEVELS FOR userOF!!!
-    dplyr::arrange(..., objectFlag) %>% # drug, strain # ...
-    dplyr::distinct(..., grouping, objectFlag, objectFlag_group_perc, grand_n, group_n, objectFlag_n) %>% # drug, strain # ...
-    dplyr::select(..., grouping, objectFlag, objectFlag_group_perc, grand_n, group_n, objectFlag_n) # drug, strain # ...
+    dplyr::mutate(objectFlag = factor(objectFlag, levels = c(uf.short, "noFlag"))) %>%
+    dplyr::arrange(..., objectFlag) %>%
+    dplyr::distinct(..., grouping, objectFlag, objectFlag_group_perc, grand_n, group_n, objectFlag_n) %>%
+    dplyr::select(..., grouping, objectFlag, objectFlag_group_perc, grand_n, group_n, objectFlag_n)
 
 
   if(plot == T) {
@@ -92,8 +91,8 @@ checkOF <- function(data, plot, ...){
             panel.grid.major.x = element_blank(),
             panel.grid.minor.y = element_blank())
     # return data and plot
-    message("Returning list with elements df.checkOF (the summary data frame) and p.checkOF (the summary plot)")
-    out <- list(df.checkOF = summary, p.checkOF = p)
+    message("Returning list with elements d (the summary data frame) and p (the summary plot)")
+    out <- list(d = summary, p = p)
     return(out)
   } else {
     message("No summary plots made. Set plot = T to make plots")

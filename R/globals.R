@@ -37,7 +37,35 @@ utils::globalVariables(c("Worm_Length", "Metadata_Experiment", "Metadata_Plate",
                          "obj",
                          "well.id",
                          "cv.n",
-                         "titer_WellFlag"))
+                         "titer_WellFlag",
+                         # checkBalance
+                         "lost",
+                         "g.total",
+                         "n.lost",
+                         "n.kept",
+                         "perc.lost",
+                         "perc.kept",
+                         "type",
+                         "n.type",
+                         "perc.type",
+                         "perc",
+                         # checkWF
+                         "wellFlag_group_perc",
+                         "wellFlag_n",
+                         # outlierWF
+                         "median_wormlength_um",
+                         "outlier_WellFlag",
+                         # regEff
+                         "coef",
+                         "term",
+                         "Estimate",
+                         "Std. Error",
+                         "t value",
+                         "Pr(>|t|)",
+                         "y",
+                         # titerWF
+                         "flag_id"
+                         ))
 
 ## quiets concerns of R CMD check re: the .'s that appear in pipelines
 if(getRversion() >= "2.15.1")  {utils::globalVariables(c("."))}

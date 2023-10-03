@@ -35,8 +35,8 @@ nWF <- function(data, ..., max = 30, min = 5, plot = T) {
                     y = "Well object count (n)")
 
     # return
-    message(glue::glue("A diagnostic plot for checking the object number thresholds (max, min) is returned. See <out>$nWF.p"))
-    out <- list(nWF.d = d, nWF.p = p)
+    message(glue::glue("A diagnostic plot for checking the object number thresholds (max, min) is returned. See <out>$.p"))
+    out <- list(d = d, p = p)
     return(out)
   } else {
     # return data only

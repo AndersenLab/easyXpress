@@ -27,7 +27,7 @@
 #' | strain             | chr           |
 #' | drug               | chr           |
 #' | concentration_um   | dbl           |
-#' | bleach             | int           |
+#' | bleach             | chr           |
 #' | diluent            | chr           |
 #' | assay_type         | chr           |
 #' | plate              | dbl           |
@@ -59,7 +59,7 @@ makeDesign <- function(proj, n.plate, n.row = 8, n.col = 12, assay.type = NULL, 
                   col = stringr::str_remove(col, pattern = "^0"),
                   food = ifelse(is.null(food), NA_character_, food),
                   od = ifelse(is.null(od), NA_integer_, od),
-                  bleach = NA_integer_,
+                  bleach = NA_character_,
                   strain = NA_character_,
                   drug = NA_character_,
                   concentration_um = NA_real_,
