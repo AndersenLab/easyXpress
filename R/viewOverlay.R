@@ -132,8 +132,8 @@ viewOverlay <- function(data, proc.img.dir, well.label, obj.label,
 
   # Get array position df
   array_pos_df <- file_list_df %>%
-    dplyr::mutate(array_x_pos = rep(0:(ncol-1), length.out = n()),
-                  array_y_pos = rep((nrow-1):0, each = ncol, length.out = n())) %>%
+    dplyr::mutate(array_x_pos = rep(0:(ncol-1), length.out = dplyr::n()),
+                  array_y_pos = rep((nrow-1):0, each = ncol, length.out = dplyr::n())) %>%
     dplyr::select(Image_FileName_RawBF, array_x_pos, array_y_pos) # just take what's needed
 
   # Get plot df for adding points

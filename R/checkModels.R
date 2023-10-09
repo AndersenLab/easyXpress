@@ -67,6 +67,7 @@ checkModels <- function(data, ..., modelName = "MDHD", OF = "filter", length_thr
 
   # nest the data
   nest <- of.data %>%
+    dplyr::mutate(well.id = paste(Metadata_Experiment, Metadata_Plate, Metadata_Well, sep = "_")) %>%
     dplyr::group_by(...) %>%
     tidyr::nest() %>%
     tidyr::unite(col = group, -data)
@@ -77,7 +78,7 @@ checkModels <- function(data, ..., modelName = "MDHD", OF = "filter", length_thr
     d <- nest %>%
       dplyr::filter(group == i) %>%
       tidyr::unnest(cols = data) %>%
-      dplyr::group_by(Metadata_Experiment, Metadata_Plate, Metadata_Well) %>%
+      dplyr::group_by(well.id) %>%
       dplyr::mutate(mean_wormlength_um = mean(worm_length_um, na.rm = TRUE)) %>%
       dplyr::group_by(strain) %>%
       dplyr::mutate(mean_strain_length = mean(mean_wormlength_um, na.rm = TRUE)) %>%
@@ -93,20 +94,19 @@ checkModels <- function(data, ..., modelName = "MDHD", OF = "filter", length_thr
 
     # get lowest wellN wells for those strains
     wells <- d %>%
-      dplyr::distinct(Metadata_Experiment, Metadata_Plate, Metadata_Well, strain, mean_wormlength_um) %>%
+      dplyr::distinct(well.id, strain, mean_wormlength_um) %>%
       dplyr::filter(strain %in% strains) %>%
       dplyr::group_by(strain) %>%
       dplyr::arrange(mean_wormlength_um) %>%
       dplyr::mutate(slice_index = 1:dplyr::n()) %>%
       dplyr::filter(slice_index <= wellN) %>%
       dplyr::ungroup() %>%
-      dplyr::mutate(well_id = paste(Metadata_Experiment, Metadata_Plate, Metadata_Well, sep = "_")) %>%
-      dplyr::pull(well_id)
+      dplyr::pull(well.id)
 
     # filter down d
     f.d <- d %>%
       dplyr::filter(strain %in% strains) %>%
-      dplyr::mutate(checkMV_well_id = paste(Metadata_Experiment, Metadata_Plate, Metadata_Well, sep = "_")) %>%
+      dplyr::mutate(checkMV_well_id = well.id) %>%
       dplyr::filter(checkMV_well_id %in% wells) %>%
       dplyr::arrange(strain)
 

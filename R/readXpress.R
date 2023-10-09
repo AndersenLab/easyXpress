@@ -18,6 +18,11 @@
 #' imageXpress nano 2X objective at \code{3.2937} pixels per micron (um). Please enter another conversion factor if necessary.
 #' @param length_thresh An object length threshold in um used to filter objects from the data. The default setting is \code{98.811} um.
 #' This is the standard threshold used for the AndersenLab images taken with the imageXpress nano. Please adjust only if necessary.
+#' @param doseR Logical, is this dose response data? The default, \code{doseR = FALSE},
+#' expects control data to be recorded in the design file a particular way. Specifically, the drug and diluent variables should be identical for controls,
+#' e.g, \code{drug = DMSO, diluent = DMSO, concentration_um = 0}. If \code{doseR = TRUE}, the controls are expected to be coded differently,
+#' .e.g, \code{drug = ABZ, diluent = DMSO, concentration_um = 0}. Warning messages are produced if the controls do not fit expectations, but try to ensure the
+#' controls are coded properly without relying this function to catch all edge cases.
 #' @return A list including two elements
 #' 1) A data frame that contains all CellProfiler model outputs as well as experimental treatments
 #' if a design file is used. If multiple project directories and .rda files are supplied, they will be joined together.
@@ -27,7 +32,14 @@
 #' @importFrom utils capture.output
 #' @export
 
-readXpress <- function(filedir, rdafile, design = FALSE, px_per_um = 3.2937, length_thresh = 98.811) {
+readXpress <- function(filedir, rdafile, design = FALSE, px_per_um = 3.2937, length_thresh = 98.811, doseR = F) {
+  # expecting message
+  if(doseR == T){
+  message("You set doseR = TRUE. Reading data as a dose response.")
+  }
+  if(doseR == F){
+    message("You set doseR = FALSE. Not reading data as a dose reponse.")
+  }
   #check for one project directory
   if(length(filedir) == 1 & length(rdafile) == 1) {
     # tell use about it
@@ -119,7 +131,9 @@ readXpress <- function(filedir, rdafile, design = FALSE, px_per_um = 3.2937, len
   # Check if you are not using a design file
   if (!design) {
     message("Design file not joined.\nPlease use 'design = TRUE' if you would like to join a design file.\n")
-    raw_data <- raw_data_read
+    raw_data <- raw_data_read %>%
+      dplyr::mutate(well.id = paste(Metadata_Experiment, Metadata_Plate, Metadata_Well, sep = "_")) %>%
+      dplyr::select(well.id, everything())
     # Return raw_data_read as raw_data
     message("DONE")
     return(raw_data)
@@ -137,17 +151,30 @@ readXpress <- function(filedir, rdafile, design = FALSE, px_per_um = 3.2937, len
       # check on control coding
       controls <- unique(design_file$diluent)
       drugs <- unique(design_file$drug)
-      if(F %in% (controls %in% drugs)) {
+      # warn about controls
+      if(doseR == F & F %in% (controls %in% drugs)) {
         # send a warning.
-        message(glue::glue("WARNING: the controls are not configured as expected in the design file. Control conditions should have the same value for drug and diluent and a 0 for concentration_um. Please correct the control condition coding before using easyXpress well flag (WF) functions.
+        message(glue::glue("WARNING: the controls are not configured as expected in the design file for doseR = FALSE. Do you want doseR = TRUE? If not, Control conditions should have the same value for drug and diluent and a 0 for concentration_um. Please correct the control condition coding before using easyXpress well flag (WF) functions.
                            For example:"))
         example <- tibble::tibble(drug = c("DMSO", "Water", "death juice", "seizure sauce"),
                                   concentration_um = c(0, 0, 10, 100),
-                                  diluent = c("DMSO", "Water", "DMSO", "Water"))
+                                  diluent = c("DMSO", "water", "DMSO", "water"))
+        message(message(paste0(capture.output(knitr::kable(example)), collapse = "\n")))
+      }
+      # warn about doseR=T
+      if(doseR == T & T %in% (controls %in% drugs)){
+        # send a warning.
+        message(glue::glue("WARNING: the controls are not configured as expected in the design file for doseR = TRUE. Do you want doseR = FALSE? If not, control conditions should have 0 for concentration_um and be named for the drug not the diluent. Please correct the control condition coding before using easyXpress well flag (WF) functions.
+                           For example:"))
+        example <- tibble::tibble(drug = c("death juice", "death juice", "seizure sauce", "seizure sauce"),
+                                  concentration_um = c(0, 10, 0, 100),
+                                  diluent = c("DMSO", "DMSO", "water", "water"))
         message(message(paste0(capture.output(knitr::kable(example)), collapse = "\n")))
       }
       #join to raw data
-      suppressMessages(raw_data <- dplyr::left_join(raw_data_read, design_file))
+      suppressMessages(raw_data <- dplyr::left_join(raw_data_read, design_file) %>%
+                         dplyr::mutate(well.id = paste(Metadata_Experiment, Metadata_Plate, Metadata_Well, sep = "_")) %>%
+                         dplyr::select(well.id, everything()))
       message("DONE")
       return(list(raw_data = raw_data, design = design_file))
     }
@@ -175,20 +202,32 @@ readXpress <- function(filedir, rdafile, design = FALSE, px_per_um = 3.2937, len
       # check on control coding
       controls <- unique(design_file$diluent)
       drugs <- unique(design_file$drug)
-      if(F %in% (controls %in% drugs)) {
+      if(doseR == F & F %in% (controls %in% drugs)) {
         # send a warning.
-        message(glue::glue("WARNING: the controls are not configured as expected in the design file. Control conditions should have the same value for drug and diluent and a 0 for concentration_um. Please correct the control condition coding before using easyXpress well flag (WF) functions.
+        message(glue::glue("WARNING: the controls are not configured as expected in the design file doseR = FALSE. Do you want doseR = TRUE? If not, control conditions should have the same value for drug and diluent and a 0 for concentration_um. Please correct the control condition coding before using easyXpress well flag (WF) functions.
                            For example:"))
-        example <- tibble::tibble(drug = c("DMSO", "Water", "death juice", "seizure sauce"),
+        example <- tibble::tibble(drug = c("DMSO", "water", "death juice", "seizure sauce"),
                                   concentration_um = c(0, 0, 10, 100),
-                                  diluent = c("DMSO", "Water", "DMSO", "Water"))
+                                  diluent = c("DMSO", "water", "DMSO", "water"))
+        message(message(paste0(capture.output(knitr::kable(example)), collapse = "\n")))
+      }
+      # warn about doseR=T
+      if(doseR == T & T %in% (controls %in% drugs)){
+        # send a warning.
+        message(glue::glue("WARNING: the controls are not configured as expected in the design file for doseR = TRUE. Do you want doseR = FALSE? If not, control conditions should have 0 for concentration_um and be named for the drug not the diluent. Please correct the control condition coding before using easyXpress well flag (WF) functions.
+                           For example:"))
+        example <- tibble::tibble(drug = c("death juice", "death juice", "seizure sauce", "seizure sauce"),
+                                  concentration_um = c(0, 10, 0, 100),
+                                  diluent = c("DMSO", "DMSO", "water", "water"))
         message(message(paste0(capture.output(knitr::kable(example)), collapse = "\n")))
       }
 
       #ADD A CHECK ON VARIABLE CLASS! BLEACH e.g.
 
       #join to raw data
-      suppressMessages(raw_data <- dplyr::left_join(raw_data_read, design_file, by = c("Metadata_Experiment", "Metadata_Plate", "Metadata_Well")))
+      suppressMessages(raw_data <- dplyr::left_join(raw_data_read, design_file, by = c("Metadata_Experiment", "Metadata_Plate", "Metadata_Well")) %>%
+                         dplyr::mutate(well.id = paste(Metadata_Experiment, Metadata_Plate, Metadata_Well, sep = "_")) %>%
+                         dplyr::select(well.id, everything()))
       message("DONE")
       return(list(raw_data = raw_data, design = design_file))
     }

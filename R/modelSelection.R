@@ -125,7 +125,7 @@ modelSelection <- function(df) {
     dplyr::group_by(Metadata_Experiment, Metadata_Plate, Metadata_Well, Parent_WormObjects) %>%
     dplyr::distinct(model, .keep_all = T) %>%
     dplyr::ungroup() %>%
-    dplyr::select(Metadata_Experiment, Metadata_Plate, Metadata_Well,
+    dplyr::select(well.id, Metadata_Experiment, Metadata_Plate, Metadata_Well,
                   Parent_WormObjects, model, num_worms) %>%
     tidyr::spread(model, num_worms) %>%
     dplyr::mutate_at(dplyr::vars(tidyselect::one_of(model_names)),
