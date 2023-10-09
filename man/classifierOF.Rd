@@ -4,7 +4,7 @@
 \alias{classifierOF}
 \title{classifierOF}
 \usage{
-classifierOF(data, model = "gbm2x")
+classifierOF(data, model = "gbm2x", thresh = 0.6)
 }
 \arguments{
 \item{data}{A data frame output from the \code{modelSelection} function.}
@@ -12,11 +12,14 @@ classifierOF(data, model = "gbm2x")
 \item{model}{Specify one of the built in models. Currently only "gbm2x" is available. This classifier was
 trained on over 1,000 worm objects selected from a large GWAS experiment and classifies objects as "worm" or "non-worm" with ~90% accuracy.
 NOTE: The model was trained to classify poorly segmented worms as 'non-worm' so true worms are often classified as "non-worm".}
+
+\item{thresh}{The probability threshold for flagging objects based on the classifier. By default the thresh is st to 0.6.
+Only the objects the classifier predicts to be improperly segmented, with a probability greater than \code{thres}, will be flagged.}
 }
 \value{
 A single data frame identical to the input data with the \code{classifier_ObjectFlag} variable added.
 The \code{classifier_ObjectFlag} variable is coded as \code{"classifier"} for objects that are called non-worm by the 2X classifier.
-All other objects are coded as \code{NA_character}. The \code{gbm2x_worm_prob} variable provides the probability that the object is a properly segmented worm.
+All other objects are coded as \code{NA_character}, or if there are NAs in any of the variables used to classify objects they are coded as \code{"classErr"}. The \code{gbm2x_worm_prob} variable provides the probability that the object is a properly segmented worm.
 }
 \description{
 This function will flag non-worm objects using machine learning.

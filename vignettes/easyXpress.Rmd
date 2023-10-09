@@ -1,7 +1,5 @@
 ---
 title: "A walk-through of easyXpress"
-author: "Author: Joy Nyaanga"
-date: "`r format(Sys.time(), '%d %b %Y')`"
 output: 
   rmarkdown::html_vignette:
     toc: true

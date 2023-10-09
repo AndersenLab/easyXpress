@@ -9,7 +9,8 @@ readXpress(
   rdafile,
   design = FALSE,
   px_per_um = 3.2937,
-  length_thresh = 98.811
+  length_thresh = 98.811,
+  doseR = F
 )
 }
 \arguments{
@@ -33,6 +34,12 @@ imageXpress nano 2X objective at \code{3.2937} pixels per micron (um). Please en
 
 \item{length_thresh}{An object length threshold in um used to filter objects from the data. The default setting is \code{98.811} um.
 This is the standard threshold used for the AndersenLab images taken with the imageXpress nano. Please adjust only if necessary.}
+
+\item{doseR}{Logical, is this dose response data? The default, \code{doseR = FALSE},
+expects control data to be recorded in the design file a particular way. Specifically, the drug and diluent variables should be identical for controls,
+e.g, \code{drug = DMSO, diluent = DMSO, concentration_um = 0}. If \code{doseR = TRUE}, the controls are expected to be coded differently,
+.e.g, \code{drug = ABZ, diluent = DMSO, concentration_um = 0}. Warning messages are produced if the controls do not fit expectations, but try to ensure the
+controls are coded properly without relying this function to catch all edge cases.}
 }
 \value{
 A list including two elements

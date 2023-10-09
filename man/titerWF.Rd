@@ -4,7 +4,7 @@
 \alias{titerWF}
 \title{titerWF}
 \usage{
-titerWF(data, ..., thresh = 0.68, plot = T)
+titerWF(data, ..., thresh = 0.68, plot = T, doseR = F)
 }
 \arguments{
 \item{data}{A data frame output from the \code{summarizeWells} function.}
@@ -16,6 +16,12 @@ Typically the grouping variables will be: \code{Metadata_Experiemnt, strain, ble
 
 \item{plot}{Logical, if \code{TRUE}, the default. A ggplot2 object will be returned showing the distribution of CVs in worm number across the wells in control conditions for all independent bleaches.
 The \code{thresh} value is plotted as a red vertical line.}
+
+\item{doseR}{Logical, is this dose response data? The default, \code{doseR = FALSE},
+expects control data to be recorded in the design file a particular way. Specifically, the drug and diluent variables should be identical for controls,
+e.g, \code{drug = DMSO, diluent = DMSO, concentration_um = 0}. If \code{doseR = TRUE}, the controls are expected to be coded differently,
+.e.g, \code{drug = ABZ, diluent = DMSO, concentration_um = 0}. Warning messages are produced if the controls do not fit expectations, but try to ensure the
+controls are coded properly without relying this function to catch all edge cases.}
 }
 \value{
 Either a single data frame identical to the input data with the \code{titer_WellFlag} variable added.

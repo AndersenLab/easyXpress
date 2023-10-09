@@ -1,7 +1,7 @@
 #' summarizeWells
 #'
 #' Summarize the objects within wells by calculating various population statistics, including the median, mean, standard deviation, and coefficient of variation (CV) for \code{worm_length_um}.
-#' The number of objects in the wells are also calculated. The output can be used with the various group flag (GF) functions if desired.
+#' The number of objects in the wells are also calculated. The output can be used with the various well flag (WF) functions if desired.
 #'
 #'
 #' @param data A data frame output from the \code{model_selection} or \code{OF} functions.
@@ -10,8 +10,8 @@
 #' @param drop Logical, if \code{TRUE}, the default. The standard variables holding object data are dropped.
 #' Be careful using \code{FALSE}. If you plan to return to using the object level data, only the variables will be retained but all rows (objects) will not be present.
 #' Therefore, the unsummarized object data will need to be rejoined with the summarized data to have both present in a single dataframe. The best practice is to retain the object level data in one data frame
-#' and summarized well data in another, which can be used with the group flag (GF) functions to complete the processing.
-#' @return A data frame with summary statistics for wells to be used with easyXpress group flag (GF) functions.
+#' and summarized well data in another, which can be used with the well flag (WF) functions to complete the processing.
+#' @return A data frame with summary statistics for wells to be used with easyXpress well flag (WF) functions.
 #' @export
 
 summarizeWells <- function(data, OF = "filter", drop = T){
@@ -87,11 +87,7 @@ summarizeWells <- function(data, OF = "filter", drop = T){
                      n = dplyr::n()) %>%
     dplyr::ungroup() %>%
     dplyr::select(-contains("Worm_")) %>%
-    dplyr::distinct(Metadata_Experiment, Metadata_Plate, Metadata_Well, .keep_all = T) %>%
-    dplyr::mutate(well.id = paste(Metadata_Experiment, Metadata_Plate, Metadata_Well, sep = "_")) %>%
-    dplyr::select(well.id, dplyr::everything())
-  # message
-  message("The well.id variable is added to the output data using paste(Metadata_Experiment, Metadata_Plate, Metadata_Well, sep = '_')")
+    dplyr::distinct(well.id, .keep_all = T)
 
   # return it
   return(out)

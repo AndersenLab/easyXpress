@@ -1,6 +1,7 @@
 #' outlierOF
 #'
-#' This function will flag outlier objects based the Worm_Legnth variable.
+#' This function will flag outlier objects based the worm_length_um variable.
+#'
 #' @param data A data frame output from the \code{modelSelection} function.
 #' @param iqr Logical, if \code{TRUE}, objects in a well are called outliers if their worm_length_um is outside the range \code{median(worm_length_um) +/- (thresh * IQR)}.
 #' If \code{FALSE}, objects in a well are called outliers if their worm_length_um is outside the range \code{mean(worm_length_um) +/- (thresh * SD)}.
