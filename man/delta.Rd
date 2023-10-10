@@ -18,7 +18,7 @@ delta(
 \item{...}{<[`dynamic-dots`][rlang::dyn-dots]> Variable(s) used to group data. It is recommended to group data to independent bleaches for all strains. Variable names in data are supplied separated by commas and without quotes.
 For example, the typical variables for grouping are \code{Metadata_Experiment, bleach, strain}.}
 
-\item{WF}{Select \code{"filter"} or \code{"ignore"}. The default, \code{"filter"}, will filter out all flagged wells before calculating the delta from control.
+\item{WF}{Select \code{"filter"} or \code{"ignore"}. The default, \code{"filter"}, will filter out all flagged wells before calculating the delta from control, if present.
 \code{"ignore"} will calculate the delta including all flagged data. Be careful using \code{"ignore"}, it is only included for diagnostic purposes.}
 
 \item{vars}{The well summary statistics to perform the delta calculation on. These are supplied in a character vector. For example, the default is set to \code{c("median_wormlength_um", "cv_wormlength_um")}.}
