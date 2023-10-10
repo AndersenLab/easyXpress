@@ -1,27 +1,27 @@
 Package: easyXpress
 Title: A Package to Read, Process, and Analyze Worm Data Generated from CellProfiler’s WormToolbox
-Version: 1.1.0
+Version: 2.0.0
 Authors@R: c(
-    person(given = "Joy",
-           family = "Nyaanga",
-           role = c("aut", "cre"),
-           email = "jnyaan@gmail.com",
-           comment = c(ORCID = "0000-0002-1402-9213")),
     person(given = "Tim",
            family = "Crombie",
-           role = "aut",
+           role = c("aut", "cre"),
            email = "tim.crombie@gmail.com",
            comment = c(ORCID = "0000-0002-5645-4154")),
+    person(given = "Joy",
+           family = "Nyaanga",
+           role = "aut",
+           email = "jnyaan@gmail.com",
+           comment = c(ORCID = "0000-0002-1402-9213")),
     person(given = "Sam",
            family = "Widmayer",
            role = "aut",
            email = "sjwidmay@gmail.com",
            comment = c(ORCID = "0000-0002-1200-4768")))
 Description: A workflow for the reading, processing, and visualization
-    of images obtained from the Molecular Devices ImageExpress Nano Imager
-    and processed with CellProfiler's WormToolbox.
-    Includes a powerful suite of functions for the rapid processing
-    and analysis of large high-throughput image based datasets.
+    of nematode morphology data extracted from images using  
+    CellProfiler's WormToolbox.
+    Includes a powerful suite of functions to process
+    large high-throughput image based datasets.
 Depends:
     R (>= 3.5.0)
 Imports:

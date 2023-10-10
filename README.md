@@ -1,10 +1,10 @@
 # easyXpress <img src="man/figures/logo.png" alt="hex" align = "right" width="130" />
 
 ## Overview 
-This package is designed for the reading, processing, and visualization of images obtained from the Molecular Devices ImageExpress Nano Imager, and processed with CellProfiler's WormToolbox.
+This package is designed for reading, processing, and visualizing of nematode morphology data extracted from images using CellProfiler's WormToolbox.
 
 ## Installation
-`easyXpress` is specialized for use with CellProfiler generated worm image data. The package is rather specific to use in the Andersen Lab and, therefore, is not available from CRAN. To install easyXpress you will need the [`devtools`](https://github.com/hadley/devtools) package. You can install `devtools` and `easyXpress` using the commands below:
+`easyXpress` is specialized for use with image data produced by the [`cellprofiler-nf` nextflow pipeline](https://github.com/AndersenLab/cellprofiler-nf). To install `easyXpress` you will need the [`devtools`](https://github.com/hadley/devtools) package. You can install `devtools` and `easyXpress` using the commands below:
 
 ```r
 install.packages("devtools")
@@ -18,21 +18,16 @@ The functionality of the package can be broken down into three main goals:
 
 + Flagging and pruning anomalous data points.
 
-+ Generating diagnositic images.
++ Generating diagnostic images.
 
-For more information about implementing CellProfiler to generate data used by the `easyXpress` package, see [`AndersenLab/cellprofiler-nf`](https://github.com/AndersenLab/cellprofiler-nf).
+For more information about implementing `cellprofiler-nf` to generate data used by the `easyXpress` package, see [`AndersenLab/cellprofiler-nf`](https://github.com/AndersenLab/cellprofiler-nf).
 
 ## Directory structure
 
-Because so much information must be transferred alongside the plate data, the directory structure 
-from which you are reading is critically important. Below is an example of a correct project directory structure. 
-The `cp_data` directory contains an `.RData` file sourced directly from the default output folder for a CellProfiler run. 
-The `processed_images` directory contains `.png` files from the CellProfiler run. There should be one `.png` file 
-for each well included in your analysis. The `design` directory contains the `.csv` file having all the variables necessary
-to describe your experiment (i.e. drug names, drug concentrations, strain names, food types, etc.).    
+The directory structure holding data is critically important. Below is an example of a correct project directory structure. 
+The `cp_data` directory contains an `.RData` file output by `cellprofiler-nf`. The `processed_images` directory contains `_overlay.png` files output by `cellprofiler-nf`. There should be one `.png` file for each well included in your analysis. The `design` directory contains a `.csv` with all the variables necessary to describe your experiment (i.e. experiment names, drug names, drug concentrations, strain names, food types, etc.).    
   
-If you do not have condition information (i.e. drug names, drug concentrations, strain names, food types, etc.) 
-you do not need the `design` directory.
+If you do not have condition information you do not need the `design` directory.
 
 ```
 /projects/20200812_example
@@ -64,25 +59,12 @@ and experiment name separated by underscores.
 
 ### File naming
 
-The processed image files should be formatted with the experiment data, name of the experiment, the plate number, 
-the magnification used for imaging, and the well name. All processed image files must be saved as `.png` files. 
-In the file named `20191119-growth-p01-m2x_A01_overlay.png` the first section `20191119` is the experiment date, 
-`growth` is the name of the experiment, `p01` is the plate number, `m2x` is the magnification used for imaging, 
-and `A01` is the well name.
+The processed image files should be formatted with the experiment data, name of the experiment, the plate number, the magnification used for imaging, and the well name. All processed image files must be saved as `.png` files. In the file named `20191119-growth-p01-m2x_A01_overlay.png` the first section `20191119` is the experiment date, `growth` is the name of the experiment, `p01` is the plate number, `m2x` is the magnification used for imaging, and `A01` is the well name.
 
 ## Package Overview 
-The complete easyXpress package consists of nine functions: 
-`readXpress`, `modelSelection`, `edgeFlag`, `setFlags`, `process`, `Xpress`, `viewPlate`, `viewWell`, and `viewDose`.
+The `easyXpress` package consists of six function classes that work together to clean and process experimental data. The `tidy` functions will help pre-process raw images to get them ready for submission to the `cellprofiler-nf` pipeline. The `ObjectFlag` or `OF` functions help to flag problematic data output from `cellprofiler-nf`. The `WellFlag` or `WF` functions work to flag anomalous summary statistics for micro-plate wells. Throughout the data cleaning workflow, the `check` and `view` function classes are used to validate whether the flag functions are properly applied. All other functions serve to facilitate the cleaning process and do not have a standardized naming convention.
 
-For more detailed information regarding use of these functions, see the vignette: **A walk-through of easyXpress**.
-This can be done in R -
-
-```r
-library(easyXpress)
-browseVignettes(package = "easyXpress")
-```
-
-<img src="man/figures/Overview.png" width=600 />
+For more detailed information regarding use of these functions, see the article: **Dose Response Processing**.
 
 ### Citation
 

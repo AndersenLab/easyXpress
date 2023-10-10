@@ -21,7 +21,7 @@ A list including four elements.
 \code{<c.var>_reg_coeff}, and \code{<c.var>_reg_sig}.
 2) A diagnostic plot, \code{<out>$p1}, showing the effect of the confounding variable (\code{c.var}) on the dependent variable (\code{d.var}).
 3) A diagnositc plot, \code{<out>$p2}, showing the regression coefficients of the confounding variable (\code{c.var}) on the y-axis and the dependent variable (\code{d.var}) on the x-axis.
-4) A list, \code{<out>$models} of model outputs for each group An ANOVA summary table with the effects.
+4) A list, \code{<out>$models} of model objects for each group.
 }
 \description{
 A function to regress out the effect a confounding variable on a dependent variable.
