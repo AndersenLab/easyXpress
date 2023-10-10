@@ -133,7 +133,7 @@ readXpress <- function(filedir, rdafile, design = FALSE, px_per_um = 3.2937, len
     message("Design file not joined.\nPlease use 'design = TRUE' if you would like to join a design file.\n")
     raw_data <- raw_data_read %>%
       dplyr::mutate(well.id = paste(Metadata_Experiment, Metadata_Plate, Metadata_Well, sep = "_")) %>%
-      dplyr::select(well.id, everything())
+      dplyr::select(well.id, dplyr::everything())
     # Return raw_data_read as raw_data
     message("DONE")
     return(raw_data)
@@ -174,7 +174,7 @@ readXpress <- function(filedir, rdafile, design = FALSE, px_per_um = 3.2937, len
       #join to raw data
       suppressMessages(raw_data <- dplyr::left_join(raw_data_read, design_file) %>%
                          dplyr::mutate(well.id = paste(Metadata_Experiment, Metadata_Plate, Metadata_Well, sep = "_")) %>%
-                         dplyr::select(well.id, everything()))
+                         dplyr::select(well.id, dplyr::everything()))
       message("DONE")
       return(list(raw_data = raw_data, design = design_file))
     }
@@ -227,7 +227,7 @@ readXpress <- function(filedir, rdafile, design = FALSE, px_per_um = 3.2937, len
       #join to raw data
       suppressMessages(raw_data <- dplyr::left_join(raw_data_read, design_file, by = c("Metadata_Experiment", "Metadata_Plate", "Metadata_Well")) %>%
                          dplyr::mutate(well.id = paste(Metadata_Experiment, Metadata_Plate, Metadata_Well, sep = "_")) %>%
-                         dplyr::select(well.id, everything()))
+                         dplyr::select(well.id, dplyr::everything()))
       message("DONE")
       return(list(raw_data = raw_data, design = design_file))
     }

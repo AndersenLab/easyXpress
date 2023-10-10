@@ -59,3 +59,4 @@ Suggests:
     progress
 RoxygenNote: 7.1.2
 VignetteBuilder: knitr
+URL: http://andersenlab.org/easyXpress/
