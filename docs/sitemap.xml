@@ -1,162 +1,165 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>http://andersenlab.org/easyXpress/404.html</loc>
+    <loc>/404.html</loc>
   </url>
   <url>
-    <loc>http://andersenlab.org/easyXpress/LICENSE-text.html</loc>
+    <loc>/LICENSE-text.html</loc>
   </url>
   <url>
-    <loc>http://andersenlab.org/easyXpress/articles/Dose_Response.html</loc>
+    <loc>/articles/Dose_Response.html</loc>
   </url>
   <url>
-    <loc>http://andersenlab.org/easyXpress/articles/easyXpress.html</loc>
+    <loc>/articles/articles/Dose_Response.html</loc>
   </url>
   <url>
-    <loc>http://andersenlab.org/easyXpress/articles/index.html</loc>
+    <loc>/articles/easyXpress.html</loc>
   </url>
   <url>
-    <loc>http://andersenlab.org/easyXpress/authors.html</loc>
+    <loc>/articles/index.html</loc>
   </url>
   <url>
-    <loc>http://andersenlab.org/easyXpress/index.html</loc>
+    <loc>/authors.html</loc>
   </url>
   <url>
-    <loc>http://andersenlab.org/easyXpress/reference/Xpress.html</loc>
+    <loc>/index.html</loc>
   </url>
   <url>
-    <loc>http://andersenlab.org/easyXpress/reference/checkBalance.html</loc>
+    <loc>/reference/Xpress.html</loc>
   </url>
   <url>
-    <loc>http://andersenlab.org/easyXpress/reference/checkEff.html</loc>
+    <loc>/reference/checkBalance.html</loc>
   </url>
   <url>
-    <loc>http://andersenlab.org/easyXpress/reference/checkModels.html</loc>
+    <loc>/reference/checkEff.html</loc>
   </url>
   <url>
-    <loc>http://andersenlab.org/easyXpress/reference/checkOF.html</loc>
+    <loc>/reference/checkModels.html</loc>
   </url>
   <url>
-    <loc>http://andersenlab.org/easyXpress/reference/checkObjs.html</loc>
+    <loc>/reference/checkOF.html</loc>
   </url>
   <url>
-    <loc>http://andersenlab.org/easyXpress/reference/checkWF.html</loc>
+    <loc>/reference/checkObjs.html</loc>
   </url>
   <url>
-    <loc>http://andersenlab.org/easyXpress/reference/classifierOF.html</loc>
+    <loc>/reference/checkWF.html</loc>
   </url>
   <url>
-    <loc>http://andersenlab.org/easyXpress/reference/clusterOF.html</loc>
+    <loc>/reference/classifierOF.html</loc>
   </url>
   <url>
-    <loc>http://andersenlab.org/easyXpress/reference/delta.html</loc>
+    <loc>/reference/clusterOF.html</loc>
   </url>
   <url>
-    <loc>http://andersenlab.org/easyXpress/reference/easyXpress-package.html</loc>
+    <loc>/reference/delta.html</loc>
   </url>
   <url>
-    <loc>http://andersenlab.org/easyXpress/reference/edgeFlag.html</loc>
+    <loc>/reference/easyXpress-package.html</loc>
   </url>
   <url>
-    <loc>http://andersenlab.org/easyXpress/reference/edgeOF.html</loc>
+    <loc>/reference/edgeFlag.html</loc>
   </url>
   <url>
-    <loc>http://andersenlab.org/easyXpress/reference/filterOF.html</loc>
+    <loc>/reference/edgeOF.html</loc>
   </url>
   <url>
-    <loc>http://andersenlab.org/easyXpress/reference/filterWF.html</loc>
+    <loc>/reference/filterOF.html</loc>
   </url>
   <url>
-    <loc>http://andersenlab.org/easyXpress/reference/gbm2x.html</loc>
+    <loc>/reference/filterWF.html</loc>
   </url>
   <url>
-    <loc>http://andersenlab.org/easyXpress/reference/index.html</loc>
+    <loc>/reference/gbm2x.html</loc>
   </url>
   <url>
-    <loc>http://andersenlab.org/easyXpress/reference/iqrOutlier.html</loc>
+    <loc>/reference/index.html</loc>
   </url>
   <url>
-    <loc>http://andersenlab.org/easyXpress/reference/makeDesign.html</loc>
+    <loc>/reference/iqrOutlier.html</loc>
   </url>
   <url>
-    <loc>http://andersenlab.org/easyXpress/reference/modelSelection.html</loc>
+    <loc>/reference/makeDesign.html</loc>
   </url>
   <url>
-    <loc>http://andersenlab.org/easyXpress/reference/model_select_1.html</loc>
+    <loc>/reference/modelSelection.html</loc>
   </url>
   <url>
-    <loc>http://andersenlab.org/easyXpress/reference/model_select_2.html</loc>
+    <loc>/reference/model_select_1.html</loc>
   </url>
   <url>
-    <loc>http://andersenlab.org/easyXpress/reference/model_select_3.html</loc>
+    <loc>/reference/model_select_2.html</loc>
   </url>
   <url>
-    <loc>http://andersenlab.org/easyXpress/reference/model_select_4.html</loc>
+    <loc>/reference/model_select_3.html</loc>
   </url>
   <url>
-    <loc>http://andersenlab.org/easyXpress/reference/nWF.html</loc>
+    <loc>/reference/model_select_4.html</loc>
   </url>
   <url>
-    <loc>http://andersenlab.org/easyXpress/reference/outlierOF.html</loc>
+    <loc>/reference/nWF.html</loc>
   </url>
   <url>
-    <loc>http://andersenlab.org/easyXpress/reference/outlierWF.html</loc>
+    <loc>/reference/outlierOF.html</loc>
   </url>
   <url>
-    <loc>http://andersenlab.org/easyXpress/reference/plateThumbs.html</loc>
+    <loc>/reference/outlierWF.html</loc>
   </url>
   <url>
-    <loc>http://andersenlab.org/easyXpress/reference/process.html</loc>
+    <loc>/reference/plateThumbs.html</loc>
   </url>
   <url>
-    <loc>http://andersenlab.org/easyXpress/reference/readXpress.html</loc>
+    <loc>/reference/process.html</loc>
   </url>
   <url>
-    <loc>http://andersenlab.org/easyXpress/reference/regEff.html</loc>
+    <loc>/reference/readXpress.html</loc>
   </url>
   <url>
-    <loc>http://andersenlab.org/easyXpress/reference/sdOutlier.html</loc>
+    <loc>/reference/regEff.html</loc>
   </url>
   <url>
-    <loc>http://andersenlab.org/easyXpress/reference/setFlags.html</loc>
+    <loc>/reference/sdOutlier.html</loc>
   </url>
   <url>
-    <loc>http://andersenlab.org/easyXpress/reference/setOF.html</loc>
+    <loc>/reference/setFlags.html</loc>
   </url>
   <url>
-    <loc>http://andersenlab.org/easyXpress/reference/setWF.html</loc>
+    <loc>/reference/setOF.html</loc>
   </url>
   <url>
-    <loc>http://andersenlab.org/easyXpress/reference/summarizeWells.html</loc>
+    <loc>/reference/setWF.html</loc>
   </url>
   <url>
-    <loc>http://andersenlab.org/easyXpress/reference/tidyImages.html</loc>
+    <loc>/reference/summarizeWells.html</loc>
   </url>
   <url>
-    <loc>http://andersenlab.org/easyXpress/reference/tidyProject.html</loc>
+    <loc>/reference/tidyImages.html</loc>
   </url>
   <url>
-    <loc>http://andersenlab.org/easyXpress/reference/titerWF.html</loc>
+    <loc>/reference/tidyProject.html</loc>
   </url>
   <url>
-    <loc>http://andersenlab.org/easyXpress/reference/userOF.html</loc>
+    <loc>/reference/titerWF.html</loc>
   </url>
   <url>
-    <loc>http://andersenlab.org/easyXpress/reference/userWF.html</loc>
+    <loc>/reference/userOF.html</loc>
   </url>
   <url>
-    <loc>http://andersenlab.org/easyXpress/reference/viewDose.html</loc>
+    <loc>/reference/userWF.html</loc>
   </url>
   <url>
-    <loc>http://andersenlab.org/easyXpress/reference/viewOverlay.html</loc>
+    <loc>/reference/viewDose.html</loc>
   </url>
   <url>
-    <loc>http://andersenlab.org/easyXpress/reference/viewPlate.html</loc>
+    <loc>/reference/viewOverlay.html</loc>
   </url>
   <url>
-    <loc>http://andersenlab.org/easyXpress/reference/viewWell.html</loc>
+    <loc>/reference/viewPlate.html</loc>
   </url>
   <url>
-    <loc>http://andersenlab.org/easyXpress/reference/wellThumbs.html</loc>
+    <loc>/reference/viewWell.html</loc>
+  </url>
+  <url>
+    <loc>/reference/wellThumbs.html</loc>
   </url>
 </urlset>

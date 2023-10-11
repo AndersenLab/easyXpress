@@ -35,11 +35,15 @@ This article will use example data that exceeds the typical size for package vig
 To clone the example data, users will need to have `git` installed on their machine. Follow the [instructions here](https://github.com/git-guides/install-git) if you don't have `git` installed or are unsure.
 
 ```{r message=FALSE}
-# specify a directory to clone the example data repository to. Here we'll clone it to the Desktop. You can use whatever path your like here, just make sure it is valid and ends in /
+# specify a directory to clone the example data repository to. Here we'll clone
+# it to the Desktop. You can use whatever path your like here, just make sure it
+# is valid and ends in /
 ex.dir <- "~/Desktop/" 
 
 # clone the repo using a system command
-system(paste0("git clone https://github.com/AndersenLab/eXDR.git ", ex.dir, "eXDR"))
+system(paste0("git clone https://github.com/AndersenLab/eXDR.git ",
+              ex.dir,
+              "eXDR"))
 
 ```
 
@@ -69,7 +73,10 @@ rdafiles <- c("20201210_toxin14A_Analysis-20231003.RData",
               "20210311_toxin22A_Analysis-20231003.RData")
 
 # Read in the data
-dr <- easyXpress::readXpress(filedir = filedirs, rdafile = rdafiles, design = T, doseR = T)
+dr <- easyXpress::readXpress(filedir = filedirs,
+                             rdafile = rdafiles,
+                             design = T,
+                             doseR = T)
 ```
 ### `modelSelection`
 
@@ -81,7 +88,7 @@ To access the raw data output from the `readXpress()` function call above, we ca
 In this example, the data was generated using 4 worm models (MDHD, L1, L2L3, and L4).
 
 ```{r}
-# Use the modelSelection function to select the best model for each primary object
+# The modelSelection function to select the best model for each primary object
 ms <- easyXpress::modelSelection(dr$raw_data)
 ```
 
@@ -132,16 +139,17 @@ The `checkModels()` function is used to see if small objects are debris. This fu
 Before the `checkModels()` function is used, a variable that specifies the PATH to the processed images for each project is needed. Below, the `dplyr` package is used to add that variable and make a well label to include in the diagnostic overlays.
 
 ```{r}
-# Add variables that describe the PATH to processed images and desired well labels
+# Add variables that describe the PATH to processed images and well labels
 cm <- cf %>%
-  dplyr::mutate(i.dir = dplyr::case_when(Metadata_Experiment == "toxin14A" ~
+  dplyr::mutate(i.dir =
+                  dplyr::case_when(Metadata_Experiment == "toxin14A" ~
                                            paste0(ex.dir, "eXDR/20201210_toxin14A/processed_images/"),
                                          Metadata_Experiment == "toxin15A" ~
                                            paste0(ex.dir, "eXDR/20201217_toxin15A/processed_images/"),
                                          Metadata_Experiment == "toxin22A" ~
                                            paste0(ex.dir, "eXDR/20210311_toxin22A/processed_images/"),
-                                         TRUE ~ NA_character_), # add the proc.img.dir var
-                w.lab = paste(drug, strain, concentration_um, sep = "_")) # add the well label var
+                                         TRUE ~ NA_character_), # add img dir var
+                w.lab = paste(drug, strain, concentration_um, sep = "_")) # add well label var
 
 # use the checkModels function
 cm.out <- checkModels(data = cm,
@@ -229,7 +237,8 @@ The `viewOverlay()` function will annotate the diagnostic images output from `ce
 
 The `setOF()` function can be used to help annotate object flags. In the example below, the `setOF()` function is used to collapse the five `_ObjectFlag` variables to a single variable named `objectFlag`, which we will use to annotate the overlays. The `dplyr` package is also used to filter the data to problematic conditions and randomly sample eight wells to pass to the `viewOverlay()` function.
 ```{r, fig.width = 12, fig.height = 8, fig.align = 'center', warning=FALSE}
-# IMPORTANT! set the seed to ensure the 8 random wells are found in the example images
+# IMPORTANT! set the seed to ensure the 8 random wells
+# are found in the example images
 set.seed(99)
 
 # set the flags and filter data
@@ -243,7 +252,8 @@ vo1 <- easyXpress::viewOverlay(data = o2,
                         well.label = "w.lab",
                         obj.label = "model",
                         text.anno = "objectFlag",
-                        file = paste0(ex.dir, "eXDR/viewOverlay/overlay1.png")) # save to example dir
+                        # save to example dir
+                        file = paste0(ex.dir, "eXDR/viewOverlay/overlay1.png")) 
 ```
 
 ```{r, echo = FALSE, fig.align = 'left', fig.cap = '**viewOverlay() output** - The objects are annotated with text showing the objectFlag type. The colors indicate which worm model was selected for the object.'}
@@ -280,7 +290,10 @@ The first element of the retruned list `tf$d` is the flagged well data. A diagno
 
 ```{r, fig.align = 'center', warning = FALSE}
 # Use the titerWF function within a particular bleach and drug for each strain
-tf <- easyXpress::titerWF(data = raw.wells, Metadata_Experiment, bleach, strain, drug, doseR = T)
+tf <- easyXpress::titerWF(data = raw.wells,
+                          Metadata_Experiment, bleach, strain, drug,
+                          doseR = T)
+
 # look at the diagnostic plot
 tf$p
 ```
@@ -342,7 +355,8 @@ The `checkBalance()` function returns a list with summary data for making the pl
 # use the checkBalance function and add assay_bleach var to design
 cb <- checkBalance(data = fw, drug, concentration_um,
                    design = dr$design %>%
-                     dplyr::mutate(assay_bleach = paste(Metadata_Experiment, bleach)),
+                     dplyr::mutate(assay_bleach =
+                                     paste(Metadata_Experiment, bleach)),
                    x = assay_bleach)
 
 # Look at the plot and add a nicer x-axis with ggplot2 package
@@ -377,7 +391,12 @@ drop <- fw %>%
   dplyr::select(-b.filter)
 
 # use the checkEff function
-ce1 <- easyXpress::checkEff(data = drop, drug, strain, x = concentration_um, y = median_wormlength_um, fill = assay_bleach, scales = "free_x")
+ce1 <- easyXpress::checkEff(data = drop,
+                            drug, strain,
+                            x = concentration_um,
+                            y = median_wormlength_um,
+                            fill = assay_bleach,
+                            scales = "free_x")
 
 # look at the plot
 ce1
@@ -392,8 +411,11 @@ The `regEff()` function will regress out the effect of a confounding variable on
 
 Before using the `regEff()` function it is important to have a well balanced design. If the effect of bleach
 ```{r, fig.align = 'center'}
-# Regress the effect of the remaining independent bleaches for each drug using regEff()
-reg <- easyXpress::regEff(data = drop, drug, d.var = median_wormlength_um, c.var = assay_bleach)
+# Regress the effect of independent bleaches for each drug using regEff()
+reg <- easyXpress::regEff(data = drop,
+                          drug,
+                          d.var = median_wormlength_um,
+                          c.var = assay_bleach)
 
 # Look at the regression coefficients in the diagnostic plot p2
 reg$p2
@@ -402,7 +424,7 @@ reg$p2
 
 ### `delta`
 
-The `delta()` function is used to control for innate differences among strains. This function will calculate the difference in well summary statistics between the experimental condition and the median control condition within a group. It is recommended to group data to independent bleaches for all strains and drugs when processing dose reponse data.
+The `delta()` function is used to control for innate differences among strains. This function will calculate the difference in well summary statistics between the experimental condition and the median control condition within a group. It is recommended to group data to independent bleaches for all strains and drugs when processing dose response data.
 
 This is the final step in processing the data. See the help for the `delta()` function with `?delta()`.
 ```{r}
