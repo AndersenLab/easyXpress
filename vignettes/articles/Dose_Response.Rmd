@@ -141,6 +141,7 @@ Before the `checkModels()` function is used, a variable that specifies the PATH 
 ```{r}
 # Add variables that describe the PATH to processed images and well labels
 cm <- cf %>%
+  # add img dir var
   dplyr::mutate(i.dir =
                   dplyr::case_when(Metadata_Experiment == "toxin14A" ~
                                            paste0(ex.dir, "eXDR/20201210_toxin14A/processed_images/"),
@@ -148,15 +149,18 @@ cm <- cf %>%
                                            paste0(ex.dir, "eXDR/20201217_toxin15A/processed_images/"),
                                          Metadata_Experiment == "toxin22A" ~
                                            paste0(ex.dir, "eXDR/20210311_toxin22A/processed_images/"),
-                                         TRUE ~ NA_character_), # add img dir var
-                w.lab = paste(drug, strain, concentration_um, sep = "_")) # add well label var
+                                         TRUE ~ NA_character_),
+                # add well label var
+                w.lab = paste(drug, strain, concentration_um, sep = "_"))
 
 # use the checkModels function
 cm.out <- checkModels(data = cm,
-                      Metadata_Experiment, drug, # the grouping vars (...), make a plot for each.
+                      # the grouping vars (...), make a plot for each.
+                      Metadata_Experiment, drug,
                       proc.img.dir = "i.dir",
                       well.label = "w.lab",
-                      out.dir = paste0(ex.dir, "eXDR/checkModels/out")) # save in the repo you cloned
+                       # save in the repo you cloned
+                      out.dir = paste0(ex.dir, "eXDR/checkModels/out"))
 ```
 
 ```{r, echo = FALSE, fig.cap = '**checkModels() output for Zinc dichloride** - The MDHD objects are all junk or improperly segemnted worms, objects < 165um are also problematic. These objects should be filtered. The large inset overlaid on the right of this plot is provided to show the objects in more detail, it is not included in the acutal function output.'}
@@ -243,8 +247,10 @@ set.seed(99)
 
 # set the flags and filter data
 o2 <- easyXpress::setOF(data = o) %>% # set the flags
-  dplyr::filter(drug == "Zinc dichloride" & concentration_um %in% c(200, 400)) %>%
-  dplyr::filter(well.id %in% sample(well.id, size = 8)) #randomly sample 8 wells
+  dplyr::filter(drug == "Zinc dichloride" &
+                  concentration_um %in% c(200, 400)) %>%
+  #randomly sample 8 wells
+  dplyr::filter(well.id %in% sample(well.id, size = 8))
 
 # Use the viewOverlay function
 vo1 <- easyXpress::viewOverlay(data = o2,
@@ -375,7 +381,7 @@ The `checkEff()` function is used to look at the data after the problematic blea
 # filter the unbalanced bleaches - nearly half the data in this example.
 drop <- fw %>%
   dplyr::mutate(b.filter =
-                  dplyr::case_when(drug == "Paraquat" & assay_bleach %in%
+                  dplyr::case_when(drug == "Paraquat" &assay_bleach %in%
                                      c("toxin14A_2",
                                        "toxin14A_3",
                                        "toxin15A_1",
@@ -441,4 +447,4 @@ checkEff(data = del, drug, strain, x = concentration_um,
          fill = assay_bleach,
          scales = "free_x")
 ```
-<br> that's it
+<br> The finalized data can be used to fit dose response curves with the `dr
