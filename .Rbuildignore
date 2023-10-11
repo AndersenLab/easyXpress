@@ -1,9 +1,3 @@
-^.*\.Rproj$
-^\.Rproj\.user$
-^doc$
-^Meta$
-^vignettes/articles$
 ^_pkgdown\.yml$
 ^docs$
 ^pkgdown$
-^\.github$
