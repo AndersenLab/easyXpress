@@ -103,17 +103,17 @@ The `edgeOF()` function will flag objects close to the edge of the well that are
 The `clusterOF()` function will flag any objects that are found within the same primary object. These 'clusters' are often debris or improperly segmented worms.
 ```{r, fig.width = 10, fig.align = 'center'}
 # Use the edgeOF fucntion
-ef <- edgeOF(data = ms)
+ef <- easyXpress::edgeOF(data = ms)
 
 # Use the clusterOF function
-cf <- clusterOF(data = ef)
+cf <- easyXpress::clusterOF(data = ef)
 ```
 
 ### `checkOF`
 
 Use the `checkOF()` function to see how the object flags look across the desired grouping variables, which are specified with `...`.
 ```{r, fig.width = 10, fig.align = 'center'}
-c1 <- checkOF(data = cf, drug, concentration_um)
+c1 <- easyXpress::checkOF(data = cf, drug, concentration_um)
 
 # loop at the plot returned
 c1$p
@@ -125,7 +125,7 @@ c1$p
 Use the `checkObjs()` function to visualize the size distributions of the objects by grouping variables.
 ```{r, fig.width = 12, fig.height = 7, fig.align = 'center', warning=FALSE}
 # Show just the noFlag data by setting OF = "filter"
-c2 <- checkObjs(data = cf, OF = 'filter', drug, concentration_um)
+c2 <- easyXpress::checkObjs(data = cf, OF = 'filter', drug, concentration_um)
 
 # look at the plot returned
 c2
@@ -154,7 +154,7 @@ cm <- cf %>%
                 w.lab = paste(drug, strain, concentration_um, sep = "_"))
 
 # use the checkModels function
-cm.out <- checkModels(data = cm,
+cm.out <- easyXpress::checkModels(data = cm,
                       # the grouping vars (...), make a plot for each.
                       Metadata_Experiment, drug,
                       proc.img.dir = "i.dir",
@@ -188,7 +188,7 @@ u = cm %>%
 uf <- easyXpress::userOF(data = u, user)
 
 # Check the object data again to see if the bimodal distributions are resolved.
-checkObjs(data = uf, OF = "filter", drug, concentration_um)
+easyXpress::checkObjs(data = uf, OF = "filter", drug, concentration_um)
 ```
 <br> The diagnostic plot made with the `checkObjs()` function above shows that the bimodal distribution in the higher concentrations of zinc are improved by adding the user object flag.
 
@@ -199,7 +199,7 @@ The `classiferOF()` function will flag objects that are likely debris or imprope
 Any objects with `NA` for the data variables used by the classifier will be flagged in the output. These are rare, and often problematic to begin with. Check the function output to see how many objects are being flagged as `NA`.
 ```{r}
 # apply the classifierOF function
-cl <- classifierOF(data = uf)
+cl <- easyXpress::classifierOF(data = uf)
 ```
 
 ### `outlierOF`
@@ -217,7 +217,7 @@ o <- easyXpress::outlierOF(data = cl)
 Use the `checkObjs()` function again to check the effect of filtering all the object flags. Any strong multi-modal signals that remain in the data should be reviewed to ensure they are the result of biology rather than anomalous features of the well image.
 ```{r,fig.width = 12, fig.height = 7, fig.align = 'center', warning=FALSE}
 # check objects again, notice how there are 5 ObjectFlags detected now.
-checkObjs(data = o, OF = 'filter', drug, concentration_um)
+easyXpress::checkObjs(data = o, OF = 'filter', drug, concentration_um)
 ```
 <br> The plot above looks much better than it did for the raw data. For example, the bimodal distributions at the high concentrations of Zinc are largely removed.
 
@@ -226,7 +226,7 @@ checkObjs(data = o, OF = 'filter', drug, concentration_um)
 Use the `checkOF` function again to see how much data is being flagged. If certain conditions in the experiment are heavily flagged it suggests that those data may not be worth keeping.
 ```{r, fig.width = 12, fig.height = 7, fig.align = 'center', warning=FALSE}
 # check object flags again
-co2 <- checkOF(data = o, drug, concentration_um)
+co2 <- easyXpress::checkOF(data = o, drug, concentration_um)
 
 # check the plot
 co2$p
@@ -349,7 +349,7 @@ cw1$p
 The `filterWF()` function will remove all the flagged wells from the data.
 ```{r}
 # Use the filterWF function and drop the flagging variables afterward
-fw <- filterWF(data = ow, rmVars = T)
+fw <- easyXpress::filterWF(data = ow, rmVars = T)
 ```
 
 ### `checkBalance`
@@ -359,7 +359,7 @@ Use the `checkBalance()` function to see the fraction of data retained after the
 The `checkBalance()` function returns a list with summary data for making the plot as `cb$d` and the plot itself as `cb$p`.  
 ```{r, fig.width = 10, fig.height = 7, fig.align = 'center'}
 # use the checkBalance function and add assay_bleach var to design
-cb <- checkBalance(data = fw, drug, concentration_um,
+cb <- easyXpress::checkBalance(data = fw, drug, concentration_um,
                    design = dr$design %>%
                      dplyr::mutate(assay_bleach =
                                      paste(Metadata_Experiment, bleach)),
@@ -442,7 +442,7 @@ del <- easyXpress::delta(data = reg$d,
                          vars = "median_wormlength_um_reg")
 
 # check the finalized data
-checkEff(data = del, drug, strain, x = concentration_um,
+easyXpress::checkEff(data = del, drug, strain, x = concentration_um,
          y = median_wormlength_um_reg_delta,
          fill = assay_bleach,
          scales = "free_x")

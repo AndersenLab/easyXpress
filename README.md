@@ -64,7 +64,7 @@ The processed image files should be formatted with the experiment data, name of 
 ## Package Overview 
 The `easyXpress` package consists of six function classes that work together to clean and process experimental data. The `tidy` functions will help pre-process raw images to get them ready for submission to the `cellprofiler-nf` pipeline. The `ObjectFlag` or `OF` functions help to flag problematic data output from `cellprofiler-nf`. The `WellFlag` or `WF` functions work to flag anomalous summary statistics for micro-plate wells. Throughout the data cleaning workflow, the `check` and `view` function classes are used to validate whether the flag functions are properly applied. All other functions serve to facilitate the cleaning process and do not have a standardized naming convention.
 
-For more detailed information regarding use of these functions, see the article: **Dose Response Processing**.
+For more detailed information regarding use of these functions, see the article: [**Dose Response Processing**](https://andersenlab.org/easyXpress/articles/Dose_Response.html).
 
 ### Citation
 
