@@ -41,7 +41,7 @@ Imports:
     gridExtra,
     dplyr,
     ggplot2,
-    pals
+    pals,
     gbm
 License: MIT + file LICENSE
 Encoding: UTF-8
